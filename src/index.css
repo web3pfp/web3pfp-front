@@ -1,0 +1,78 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Anek Bangla', sans-serif;
+    /*font-family: 'Inter', sans-serif;*/
+    /*font-family: 'Montserrat', sans-serif;*/
+    font-size: 20px;
+}
+
+body.ReactModal__Body--open{
+    overflow: hidden;
+}
+
+a{
+    text-decoration: none;
+}
+
+.top_buttons{
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+}
+
+.top_buttons_item{
+    font-family: 'Inter', sans-serif;
+    width: 286px;
+    height: 81px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 24px;
+    color: #0C6372;
+    cursor: pointer;
+}
+
+.top_buttons_item.end{
+    margin-left: auto;
+}
+
+.page{
+    background-image: url(./assets/img/main_bg.svg);
+    padding-top: 100px;
+    background-size: cover;
+    background-position: center top;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.page.gallery{
+    background-image: url(./assets/img/gallery_bg.svg);
+}
+
+.footer{
+    position: relative;
+    margin-top: auto;
+}
+
+.footer_logo{
+    position: absolute;
+    left: 10px;
+    bottom: 100%;
+}
+
+.footer_text{
+    font-weight: 400;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+}
