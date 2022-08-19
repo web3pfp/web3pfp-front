@@ -1,0 +1,312 @@
+.orange_badge{
+  max-width: 1163px;
+  padding: 16px 160px;
+  background: #E9983D;
+  border-radius: 0 80px 80px 0;
+  margin-bottom: 20px;
+  margin-top: 24px;
+
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  color: #fff;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.45);
+  text-align: center;
+
+  &.right{
+    margin-left: auto;
+    padding: 16px 150px;
+    border-radius: 80px 0 0 80px;
+
+    @media screen and (max-width: 1200px){
+      margin-right: 0;
+      margin-top: 0;
+      margin-left: 30px;
+      max-width: 800px;
+      padding-left: 50px;
+      padding-right: 50px;
+
+    }
+
+    @media screen and (max-width: 767px){
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+
+  @media screen and (max-width: 1200px){
+    font-size: 24px;
+    margin-right: 30px;
+  }
+
+  @media screen and (max-width: 1000px){
+    padding-left: 50px;
+    padding-right: 50px;
+    font-size: 18px;
+  }
+
+  @media screen and (max-width: 767px){
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 50px;
+  }
+}
+
+.chains_content{
+  display: flex;
+
+  @media screen and (max-width: 1650px){
+    display: block;
+  }
+}
+
+.chains_list{
+  margin-bottom: 100px;
+
+  @media screen and (max-width: 1650px){
+    margin-bottom: 30px;
+  }
+
+  @media screen and (max-width: 767px){
+    overflow: hidden;
+  }
+}
+
+.chain_item{
+  display: flex;
+  align-items: center;
+  padding-left: 200px;
+  padding-right: 91px;
+  position: relative;
+  width: fit-content;
+
+  @media screen and (max-width: 1400px){
+    padding-left: 73px;
+  }
+
+  @media screen and (max-width: 767px){
+    padding-left: 13px;
+    padding-right: 25px;
+  }
+
+  & + &{
+    margin-top: 38px;
+  }
+
+  img{
+    display: block;
+    width: 116px;
+    position: relative;
+    z-index: 3;
+
+    @media screen and (max-width: 1400px){
+      width: 80px;
+    }
+
+    @media screen and (max-width: 1000px){
+      width: 60px;
+    }
+
+    @media screen and (max-width: 767px){
+      width: 40px;
+      flex: none;
+    }
+  }
+
+  &_title{
+    position: relative;
+    margin-left: 26px;
+    margin-right: 50px;
+    z-index: 1;
+
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 48px;
+    color: #FFFFFF;
+
+    @media screen and (max-width: 1400px){
+      font-size: 32px;
+    }
+
+    @media screen and (max-width: 1000px){
+      font-size: 22px;
+    }
+
+    @media screen and (max-width: 767px){
+      font-size: 15px;
+      margin: 0 5px;
+      flex: none;
+    }
+
+    & ~ img{
+      width: 120px;
+
+      @media screen and (max-width: 1400px){
+        width: 90px;
+      }
+
+      @media screen and (max-width: 1000px){
+        width: 60px;
+      }
+
+      @media screen and (max-width: 767px){
+        width: 40px;
+      }
+
+      & + img{
+        margin-left: 9px;
+      }
+    }
+  }
+
+  &:before{
+    content: '';
+    display: block;
+    width: 100%;
+    height: 44px;
+    border: 8px solid #FFFFFF;
+    border-left: none;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 0 80px 80px 0;
+
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+
+    @media screen and (max-width: 1000px){
+      height: 30px;
+      border-width: 4px;
+    }
+
+    @media screen and (max-width: 767px){
+
+    }
+  }
+
+  &.rsk{
+    padding-left: 111px;
+
+    @media screen and (max-width: 1400px){
+      padding-left: 20px;
+    }
+
+    img:first-child{
+      margin-right: -30px;
+
+      @media screen and (max-width: 1000px){
+        margin-right: -10px;
+      }
+    }
+
+    &:before{
+      background: rgba(247, 147, 26, 0.76);
+    }
+  }
+
+  &.eth{
+   &:before{
+     background: rgba(98, 126, 234, 0.76);
+   }
+  }
+
+  &.polygon{
+
+    .chain_item_title{
+      margin-right: 87px;
+
+      @media screen and (max-width: 767px){
+        margin-right: 32px;
+      }
+    }
+
+   &:before{
+     background: rgba(130, 71, 229, 0.76);
+   }
+  }
+
+  &.binance{
+   &:before{
+     background: rgba(241, 185, 12, 0.76);
+   }
+
+    @media screen and (max-width: 767px){
+      min-width: 410px;
+    }
+  }
+
+  &.avax{
+   &:before{
+     background: rgba(232, 65, 66, 0.76);
+   }
+  }
+}
+
+.currencies_list{
+  margin-top: auto;
+  margin-left: 110px;
+
+  @media screen and (max-width: 1650px){
+    display: flex;
+    margin-bottom: 100px;
+    margin-left: 90px;
+  }
+
+  @media screen and (max-width: 1200px){
+    margin-left: 20px;
+    flex-wrap: wrap;
+  }
+}
+
+.currency_item{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 172px;
+
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  color: #AFAFAF;
+
+  img{
+    width: 58px;
+    height: 58px;
+    object-fit: contain;
+  }
+
+  @media screen and (max-width: 1650px){
+    flex-direction: row-reverse;
+    width: unset;
+    margin-right: 50px;
+
+    img{
+      margin-right: 20px;
+    }
+  }
+
+  @media screen and (max-width: 1200px){
+    font-size: 18px;
+    margin-bottom: 20px;
+
+    img{
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  @media screen and (max-width: 767px){
+    font-size: 14px;
+
+    img{
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+  }
+}

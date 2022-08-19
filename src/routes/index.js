@@ -6,6 +6,9 @@ import UserRoutes from "./UserRoutes";
 
 import MainPage from "../pages/MainPage";
 import GalleryPage from "../pages/GalleryPage";
+import MintingPage from "../pages/MintingPage";
+import ReplacePage from "../pages/ReplacePage";
+import InfoPage from "../pages/InfoPage";
 
 const Routers = () => {
     return (
@@ -13,6 +16,9 @@ const Routers = () => {
             <Routes>
                 <Route path={pathList.mainPage.path} element={<UserRoutes element={MainPage}/>}/>
                 <Route path={pathList.gallery.path} element={<UserRoutes element={GalleryPage}/>}/>
+                <Route path={pathList.minting.path} element={<UserRoutes element={MintingPage}/>}/>
+                <Route path={pathList.replace.path} element={<UserRoutes element={ReplacePage}/>}/>
+                <Route path={pathList.info.path} element={<UserRoutes element={InfoPage}/>}/>
             </Routes>
         </>
     );

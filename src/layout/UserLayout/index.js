@@ -25,9 +25,9 @@ const UserLayout = ({children}) => {
     return (
         <div id="layout" className={`page ${pageName}`}>
             <div className="top_buttons">
-                <Link className="top_buttons_item"  to={pathList.mainPage.path}>Web3PFP</Link>
-                <Link className="top_buttons_item" to={pathList.gallery.path}>My PFPs</Link>
-                <div className="top_buttons_item end">Connect Wallet</div>
+                <Link className="top_buttons_item top_buttons_item_main"  to={pathList.mainPage.path}>Web3PFP</Link>
+                <Link className="top_buttons_item top_buttons_item_gallery" to={pathList.gallery.path}>My PFPs</Link>
+                <div className="top_buttons_item top_buttons_item_wallet end">Connect Wallet</div>
             </div>
             {children}
             <div className="footer">

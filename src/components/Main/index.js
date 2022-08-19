@@ -8,6 +8,8 @@ import maticImg from '../../assets/img/matic.png'
 import bscImg from '../../assets/img/bsc.png'
 import avalancheImg from '../../assets/img/avalanche.png'
 import girlImg from '../../assets/img/main_girl.png'
+import {Link} from "react-router-dom";
+import {pathList} from "../../routes/path";
 
 const Main = () => {
   return (
@@ -34,11 +36,11 @@ const Main = () => {
 
               <div className={styles.controls_buttons}>
                   <div className={styles.controls_buttons_item_wrap}>
-                      <div className={styles.controls_buttons_item}><span>Mint Your PFP</span></div>
+                      <Link to={pathList.minting.path} className={styles.controls_buttons_item}><span>Mint Your PFP</span></Link>
                       <div className={styles.controls_buttons_item_text}>3 usd stablecoin minimum donation to mint 0.3 usd stablecoin access fee to update </div>
                   </div>
                   <div className={styles.controls_buttons_item_wrap}>
-                    <div className={styles.controls_buttons_item}><span>Manage Your PFPs</span></div>
+                    <div className={styles.controls_buttons_item}><span>Manage <span>Your</span> PFPs</span></div>
                   </div>
               </div>
           </div>
@@ -50,7 +52,7 @@ const Main = () => {
                   <p>These access key tokens allow users to change the final destination (image) each IPNS address in the NFT metadata points to.</p>
                   <p>Each Web3PFP NFT displays a user-uploaded profile picture that can be changed whenever by the token holder.</p>
                   <p>Online communities can utilize the blockchain security behind the Web3PFP to apply an initial layer of security across an increasing amount of social media platforms to help keep their communities safe.</p>
-                  <div className={styles.main_info_text_more}>Learn More</div>
+                  <Link to={pathList.info.path} className={styles.main_info_text_more}><span>Learn More</span></Link>
               </div>
               <div className={styles.main_info_img}>
                   <img src={girlImg} alt=""/>

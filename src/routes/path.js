@@ -7,4 +7,16 @@ export const pathList = {
         path: "/gallery",
         title: "My PFPs",
     },
+    minting: {
+        path: "/minting",
+        title: "",
+    },
+    replace: {
+        path: "/replace",
+        title: "",
+    },
+    info: {
+        path: "/info",
+        title: "",
+    },
 }
