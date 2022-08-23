@@ -75,12 +75,26 @@ a{
     position: absolute;
     left: 10px;
     bottom: 100%;
+    width: 79px;
+    height: 79px;
+    background-image: url(./assets/img/copy_logo.svg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.main_page .footer_logo{
+    background-image: url(./assets/img/copy_logo_grey.svg);
 }
 
 .footer_text{
     font-weight: 400;
     font-size: 12px;
     color: rgba(255, 255, 255, 0.5);
+}
+
+.main_page .footer_text{
+    color: #AFAFAF;
 }
 
 @media screen and (max-width: 1200px){

@@ -13,7 +13,7 @@ export const Provider = ({customReducers, children}) => {
         [customReducers]
     );
     const [state, dispatch] = useReducer(memoReducers, initialState);
-    // console.log("state", state);
+    console.log("state", state);
     const actions = useActions(types, dispatch, actionCreators);
 
     return (
