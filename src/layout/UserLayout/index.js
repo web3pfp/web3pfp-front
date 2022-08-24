@@ -33,8 +33,6 @@ const UserLayout = ({children}) => {
 
     }, [])
 
-    console.log("page name", pageName?.length)
-
     return (
         <div id="layout" className={`page ${pageName?.length > 0 ? pageName : "main_page"}`}>
             <div className="top_buttons">
