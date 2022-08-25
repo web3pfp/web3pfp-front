@@ -45,9 +45,9 @@ const Gallery = () => {
                 ><span>Mint New PFP</span></div>
                 <div className={styles.gallery_grid}>
                     {
-                        galleryData && galleryData?.map(item => {
+                        galleryData && galleryData?.map((item, idx) => {
                             return (
-                                <div className={styles.gallery_grid_item}>
+                                <div key={idx} className={styles.gallery_grid_item}>
                                     <div className={styles.gallery_grid_item_info}>
                                         <div className={styles.gallery_grid_item_info_name}>PFP #1</div>
                                         <div className={styles.gallery_grid_item_info_id}>Token ID: 15,675</div>

@@ -33,6 +33,9 @@ const UserLayout = ({children}) => {
 
     }, [])
 
+
+    const [isWallets] = useState(!!window?.ethereum || !!window?.eth)
+
     return (
         <div id="layout" className={`page ${pageName?.length > 0 ? pageName : "main_page"}`}>
             <div className="top_buttons">
@@ -43,9 +46,14 @@ const UserLayout = ({children}) => {
                 {
                     user?.publicAddress
                         ? <div className="top_buttons_item top_buttons_item_wallet end" onClick={auth.logout}>{customAddress(user?.publicAddress)}</div>
-                        : <div className="top_buttons_item top_buttons_item_wallet end"
-                              onClick={() => ACTION.SET_LOGIN_MODAL(true)}
-                        >Connect Wallet</div>
+                        : <>
+                            {
+                                isWallets &&
+                                <div className="top_buttons_item top_buttons_item_wallet end"
+                                     onClick={() => ACTION.SET_LOGIN_MODAL(true)}
+                                >Connect Wallet</div>
+                            }
+                        </>
                 }
             </div>
             {children}

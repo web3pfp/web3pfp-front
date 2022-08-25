@@ -2,7 +2,7 @@
 
 .auth_modal{
   font-family: 'Inter', sans-serif;
-  width: 500px;
+  width: fit-content;
   max-width: 100%;
   background-color: #fff;
   border-radius: 33px;
@@ -27,12 +27,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
     background-color: #0C6372;
     color: #fff;
     font-weight: 700;
     font-size: 24px;
     border-radius: 30px 30px 0 0;
+    padding: 0 70px;
 
     @media screen and (max-width: 767px){
       border-radius: 0;
@@ -52,22 +53,73 @@
 
   &_row{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
+    padding: 0 30px;
   }
 
   &_wallet{
-    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50px;
 
     & + &{
       margin-left: 40px;
     }
 
-    img{
+    & > img{
       display: block;
-      width: 100px;
-      height: 100px;
+      height: 50px;
+      margin-bottom: 30px;
       object-fit: contain;
+    }
+
+    &_buttons{
+      display: grid;
+      align-items: center;
+      grid-template-columns: repeat(6, 1fr);
+      grid-gap: 15px;
+    }
+
+    &_button_item{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      background-color: #f2f2f2;
+      border-radius: 5px;
+      transition: .3s;
+      font-size: 18px;
+      grid-column:span 2;
+      cursor: pointer;
+
+      &.metamask{
+        margin-top: 80px;
+      }
+
+      &.disabled{
+        opacity: .5;
+        pointer-events: none;
+      }
+
+      &:nth-child(4),
+      &:nth-child(5){
+        grid-column:span 3;
+      }
+
+      &:hover{
+        background-color: #e4e4e4;
+      }
+
+      img{
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        display: block;
+        margin-right: 10px;
+      }
     }
 
   }

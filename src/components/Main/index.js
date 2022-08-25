@@ -32,6 +32,7 @@ const Main = () => {
 
     const [isUploadModalOpen, setIsUploadModalOpen] = useState(false)
     const [isReplaceModal, setIsReplaceModal] = useState(false)
+    const [isWallets] = useState(!!window?.ethereum || !!window?.eth)
 
     const openUploadModal = (type) => {
         if (user?.publicAddress) {
@@ -45,7 +46,7 @@ const Main = () => {
     const onOpenGallery = () => {
         if (user?.publicAddress) {
             navigate(pathList.gallery.path)
-        } else {
+        } else if (isWallets) {
             ACTION.SET_LOGIN_MODAL(true)
         }
     }
@@ -77,7 +78,7 @@ const Main = () => {
                 <div className={styles.controls_buttons}>
                     <div className={styles.controls_buttons_item_wrap}>
                         <div className={styles.controls_buttons_item}
-                             onClick={() => openUploadModal(false)}
+                             onClick={() => isWallets && openUploadModal(false)}
                         >
                             <span>Mint Your PFP</span>
                         </div>
