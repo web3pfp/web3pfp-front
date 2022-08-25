@@ -4,9 +4,7 @@ import axios from "axios";
 export default class Base {
     constructor() {
         // eslint-disable-next-line no-undef
-        const BASE_URL = "http://localhost:3030";
-        // const BASE_URL = process.env.REACT_APP_API;
-        // const BASE_URL = window.location.origin;
+        const BASE_URL = process.env.REACT_APP_API;
         // eslint-disable-next-line no-undef
         this.url = BASE_URL;
     }
