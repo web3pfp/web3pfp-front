@@ -19,6 +19,7 @@ const Routers = () => {
                 <Route path={pathList.minting.path} element={<UserRoutes element={MintingPage}/>}/>
                 <Route path={pathList.replace.path} element={<UserRoutes element={ReplacePage}/>}/>
                 <Route path={pathList.info.path} element={<UserRoutes element={InfoPage}/>}/>
+                <Route path="*" element={<UserRoutes element={MainPage}/>}/>
             </Routes>
         </>
     );

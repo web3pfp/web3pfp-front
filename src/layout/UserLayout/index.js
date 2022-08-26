@@ -13,7 +13,7 @@ const UserLayout = ({children}) => {
     useInitFirstLoad();
     const [{user, loginModal}, ACTION] = useContext(Context);
 
-    const {customAddress} = useCommon()
+    const {customAddress, getProvidersLogo} = useCommon()
     const auth = useAuth()
 
     const [isCautionModalOpen, setIsCautionModalOpen] = useState(false)
@@ -45,7 +45,10 @@ const UserLayout = ({children}) => {
                 }
                 {
                     user?.publicAddress
-                        ? <div className="top_buttons_item top_buttons_item_wallet end" onClick={auth.logout}>{customAddress(user?.publicAddress)}</div>
+                        ? <div className="top_buttons_item top_buttons_item_wallet end" onClick={auth.logout}>
+                            <img src={getProvidersLogo(user?.provider)} alt=""/>
+                            {customAddress(user?.publicAddress)}
+                    </div>
                         : <>
                             {
                                 isWallets &&

@@ -32,7 +32,6 @@ const useAuthWithMetamask = () => {
         return new AuthApi()
             .loginMetamask({ account, signature, provider: chainId })
             .then((res) => {
-                console.log("loginMetamask api", res)
                 if (res?.status) {
                     ACTION.SET_USER(res?.data?.user);
                     localStorageSet("token", res?.data?.token);

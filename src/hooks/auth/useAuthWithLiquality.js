@@ -16,24 +16,22 @@ const useAuthWithLiquality = () => {
 
         const provider = new ethers.providers.Web3Provider(window?.[chain], "any");
 
-        // const chainId = await handleWeb3.getNetwork();
+        const chainId = +(await provider.getNetwork()).chainId;
+
+        await window?.[chain]?.enable();
 
         const signer = provider.getSigner();
 
-        const account = await signer.getAddress()
+        const account = await signer.getAddress();
 
         const nonce = await handleUser.getNonce(account).catch(() => null);
         if (!nonce) return null;
 
         const signature = await signer.signMessage(`I am signing my one-time nonce: ${nonce}`)
 
-        const chainId = 9999;
-
-
         return new AuthApi()
             .loginLiquality({ account: account, signature, provider: chainId })
             .then((res) => {
-                console.log("loginMetamask api", res)
                 if (res?.status) {
                     ACTION.SET_USER(res?.data?.user);
                     localStorageSet("token", res?.data?.token);

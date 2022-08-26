@@ -46,6 +46,11 @@ a{
     margin-left: auto;
 }
 
+.top_buttons_item.top_buttons_item_wallet img{
+    width: 30px;
+    margin-right: 10px;
+}
+
 .page{
     background-image: url(./assets/img/main_bg.svg);
     padding-top: 100px;

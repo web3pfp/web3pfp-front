@@ -1,18 +1,24 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import styles from "./styles.module.scss"
 import replaceIcon from "../../assets/img/replace_icon.svg"
-import rskChainImg from "../../assets/img/rsk_chain.png"
 import UploadPFPModal from "../../common/modals/UploadPFPModal";
 import ItemApi from "../../utils/api/ItemApi";
+import useCommon from "../../hooks/useCommon";
+import {Context} from "../../store";
 
 const Gallery = () => {
+    const [{user}] = useContext(Context);
 
     const [isUploadModalOpen, setIsUploadModalOpen] = useState(false)
     const [isReplaceModal, setIsReplaceModal] = useState(false)
     const [galleryData, setGalleryData] = useState(null)
+    const [selectedItem, setSelectedItem] = useState(null)
 
-    const openUploadModal = (type) => {
+    const {getProvidersLogo} = useCommon()
+
+    const openUploadModal = (type, item) => {
         setIsReplaceModal(type)
+        setSelectedItem(item)
         setIsUploadModalOpen(true)
     }
 
@@ -56,14 +62,14 @@ const Gallery = () => {
                                         <img src={item?.link} alt=""/>
                                     </div>
                                     <div className={styles.gallery_grid_item_desc}>{item?.description ? item?.description : <br/>}</div>
-                                    <div className={styles.gallery_grid_item_replace_btn}
-                                         onClick={() => openUploadModal(true)}
+                                    <div className={`${styles.gallery_grid_item_replace_btn} ${user?.provider !== item?.provider ? styles.disabled : ""}`}
+                                         onClick={() => openUploadModal(true, item)}
                                     >
                                         <span>Replace</span>
                                         <img src={replaceIcon} alt=""/>
                                     </div>
                                     <div className={styles.gallery_grid_item_chain_icon}>
-                                        <img src={rskChainImg} alt=""/>
+                                        <img src={getProvidersLogo(item?.provider)} alt=""/>
                                     </div>
                                 </div>
                             )
@@ -76,6 +82,7 @@ const Gallery = () => {
                 onRequestClose={closeUploadModal}
                 isReplace={isReplaceModal}
                 callback={onImageUploaded}
+                item={selectedItem}
             />
         </div>
     );
