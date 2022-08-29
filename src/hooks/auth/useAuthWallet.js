@@ -39,7 +39,6 @@ const useAuthWithMetamask = () => {
             .then((res) => {
                 if (res?.status) {
                     ACTION.SET_USER(res?.data?.user);
-                    console.log("loginMetamask api", res)
                     localStorageSet("token", res?.data?.token);
                 } else {
                     if (res?.message) {

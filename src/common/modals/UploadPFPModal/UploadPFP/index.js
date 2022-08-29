@@ -34,6 +34,7 @@ const UploadPFP = ({onRequestClose, isReplace, callback, item}) => {
         formData.append("file", uploadedImage);
         formData.append("desc", imageDescription);
         formData.append("provider", user?.provider);
+        formData.append("isWatermark", `${+isSwitcherOn}`);
 
         new ItemApi()
             .create(formData)
@@ -50,6 +51,7 @@ const UploadPFP = ({onRequestClose, isReplace, callback, item}) => {
         formData.append("file", uploadedImage);
         formData.append("desc", imageDescription);
         formData.append("itemID", item?._id);
+        formData.append("isWatermark", `${+isSwitcherOn}`);
 
         new ItemApi()
             .update(formData)

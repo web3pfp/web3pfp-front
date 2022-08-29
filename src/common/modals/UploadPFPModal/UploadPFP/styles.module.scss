@@ -121,6 +121,11 @@ $watermark_switcher_margin: 37px;
         cursor: pointer;
         transition: .3s;
 
+        &.disabled{
+          pointer-events: none;
+          opacity: .5;
+        }
+
         &:before{
           content: '';
           display: block;
