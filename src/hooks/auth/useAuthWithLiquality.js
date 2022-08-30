@@ -30,7 +30,7 @@ const useAuthWithLiquality = () => {
         const signature = await signer.signMessage(`I am signing my one-time nonce: ${nonce}`)
 
         return new AuthApi()
-            .loginLiquality({ account: account, signature, provider: chainId })
+            .loginLiquality({ account: account, signature, provider: chainId, providerName: chain })
             .then((res) => {
                 if (res?.status) {
                     ACTION.SET_USER(res?.data?.user);

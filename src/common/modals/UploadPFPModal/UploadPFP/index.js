@@ -2,32 +2,40 @@ import React, {useContext, useState} from 'react';
 import styles from './styles.module.scss'
 import replaceIcon from "../../../../assets/img/replace_icon_white.svg"
 import watermarkIcon from "../../../../assets/img/watermark.svg"
-import ItemApi from "../../../../utils/api/ItemApi";
 import {Context} from "../../../../store";
+import useHandleNft from "../../../../hooks/useHandleNFT";
 
 
-const UploadPFP = ({onRequestClose, isReplace, callback, item}) => {
+const UploadPFP = ({onRequestClose, isReplace, callback, item = null}) => {
     const [{user}] = useContext(Context);
+
+    const handleNft = useHandleNft({item, onRequestClose, callback})
 
     const [imageDescription, setImageDescription] = useState(item?.description ?? "")
     const [isSwitcherOn, setIsSwitcherOn] = useState(false)
     const [uploadedImage, setUploadedImage] = useState(null)
     const [imagePreview, setImagePreview] = useState(null)
 
+    const [isMintDisabled, setIsMintDisabled] = useState(true)
+    const [isMintingInProgress, setIsMintingInProgress] = useState(false)
 
     const onImageChanged = (event) => {
         if (event.target.files[0]) {
             setUploadedImage(event.target.files[0])
             setImagePreview(URL.createObjectURL(event.target.files[0]))
+            setIsMintDisabled(false)
         } else {
             setUploadedImage(null)
             setImagePreview(null)
+            setIsMintDisabled(true)
         }
     }
 
     const onDescriptionChanged = (event) => setImageDescription(event.target.value)
 
-    const onItemCreate = () => {
+    const onItemCreate = async () => {
+
+        setIsMintingInProgress(true)
 
         const formData = new FormData()
 
@@ -36,15 +44,10 @@ const UploadPFP = ({onRequestClose, isReplace, callback, item}) => {
         formData.append("provider", user?.provider);
         formData.append("isWatermark", `${+isSwitcherOn}`);
 
-        new ItemApi()
-            .create(formData)
-            .then(() => {
-                onRequestClose()
-                callback()
-            })
+        await handleNft.mintNFT(formData)
     }
 
-    const onItemUpdate = () => {
+    const onItemUpdate = async () => {
 
         const formData = new FormData()
 
@@ -53,12 +56,7 @@ const UploadPFP = ({onRequestClose, isReplace, callback, item}) => {
         formData.append("itemID", item?._id);
         formData.append("isWatermark", `${+isSwitcherOn}`);
 
-        new ItemApi()
-            .update(formData)
-            .then(() => {
-                onRequestClose()
-                callback()
-            })
+        await handleNft.updateNFT(formData)
     }
 
     return (
@@ -101,10 +99,12 @@ const UploadPFP = ({onRequestClose, isReplace, callback, item}) => {
                 <label htmlFor="upload_image" className={styles.upload_modal_buttons_item}><span>Choose a File</span></label>
                 {
                     isReplace
-                        ? <div className={styles.upload_modal_buttons_item}
+                        ? <div className={`${styles.upload_modal_buttons_item}`}
                                onClick={onItemUpdate}
                         ><span>Update PFP</span></div>
-                        : <div className={styles.upload_modal_buttons_item}
+                        : <div className={`${styles.upload_modal_buttons_item} 
+                        ${isMintDisabled || isMintingInProgress ? styles.disabled : ""}
+                        `}
                                onClick={onItemCreate}
                         ><span>Mint Your PFP</span></div>
                 }

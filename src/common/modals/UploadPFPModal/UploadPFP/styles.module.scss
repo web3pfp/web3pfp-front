@@ -239,6 +239,11 @@ $watermark_switcher_margin: 37px;
       padding: 0;
       width: 227px;
 
+      &.disabled{
+        opacity: .5;
+        pointer-events: none;
+      }
+
       & + &{
         margin-left: 40px;
 

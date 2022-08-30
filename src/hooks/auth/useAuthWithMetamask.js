@@ -30,7 +30,7 @@ const useAuthWithMetamask = () => {
         const signature = await signer.signMessage(`I am signing my one-time nonce: ${nonce}`)
 
         return new AuthApi()
-            .loginMetamask({ account, signature, provider: chainId })
+            .loginMetamask({ account, signature, provider: chainId, providerName: "ethereum" })
             .then((res) => {
                 if (res?.status) {
                     ACTION.SET_USER(res?.data?.user);

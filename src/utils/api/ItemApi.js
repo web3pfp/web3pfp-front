@@ -11,8 +11,23 @@ export default class ItemApi extends Base {
         return super.post("item/create", data);
     }
 
+    async confirm(data) {
+        if (!super.getToken()) return null;
+        return super.post("item/confirm", data);
+    }
+
+    async delete(data) {
+        if (!super.getToken()) return null;
+        return super.post("item/delete", data);
+    }
+
     async update(data) {
         if (!super.getToken()) return null;
         return super.post("item/update", data);
+    }
+
+    async getContract() {
+        if (!super.getToken()) return null;
+        return super.get("item/getContract");
     }
 }

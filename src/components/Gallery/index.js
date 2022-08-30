@@ -1,13 +1,16 @@
 import React, {useContext, useEffect, useState} from 'react';
+import {useNavigate} from "react-router-dom"
+import {Context} from "../../store";
+import ItemApi from "../../utils/api/ItemApi";
+import UploadPFPModal from "../../common/modals/UploadPFPModal";
+import useCommon from "../../hooks/useCommon";
 import styles from "./styles.module.scss"
 import replaceIcon from "../../assets/img/replace_icon.svg"
-import UploadPFPModal from "../../common/modals/UploadPFPModal";
-import ItemApi from "../../utils/api/ItemApi";
-import useCommon from "../../hooks/useCommon";
-import {Context} from "../../store";
+import {localStorageGet} from "../../utils/localStorage";
 
 const Gallery = () => {
     const [{user}] = useContext(Context);
+    const navigate = useNavigate()
 
     const [isUploadModalOpen, setIsUploadModalOpen] = useState(false)
     const [isReplaceModal, setIsReplaceModal] = useState(false)
@@ -37,6 +40,11 @@ const Gallery = () => {
     useEffect(() => {
         getAll()
     }, [])
+
+    useEffect(() => {
+        const token = localStorageGet("token", null)
+        if (!token) navigate("/")
+    }, [user])
 
     const onImageUploaded = () => {
         getAll()
