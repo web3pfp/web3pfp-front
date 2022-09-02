@@ -103,7 +103,7 @@ const UploadPFP = ({onRequestClose, isReplace, callback, item = null}) => {
                                onClick={onItemUpdate}
                         ><span>Update PFP</span></div>
                         : <div className={`${styles.upload_modal_buttons_item} 
-                        ${isMintDisabled || isMintingInProgress ? styles.disabled : ""}
+                            ${isMintDisabled || isMintingInProgress ? styles.disabled : ""}
                         `}
                                onClick={onItemCreate}
                         ><span>Mint Your PFP</span></div>

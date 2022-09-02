@@ -18,12 +18,21 @@ const useHandleNft = ({onRequestClose, callback}) => {
             .catch(() => null)
 
         const data = await handleWeb3.mintNFT(createdItem)
+        const parsedToken = data?.tokenID || null;
+
+        console.log("parsedToken", parsedToken)
+        console.log("data", data)
+
         if (!data) return await deleteNFT(createdItem)
 
-        const tnxRes = await data.wait().catch(() => null)
-        if (!tnxRes) return await deleteNFT(createdItem)
+        const tnxRes = await data?.wait()?.catch(() => data)
+        console.log("tnxRes", tnxRes)
 
-        const tokenID = parseInt(tnxRes?.events[0]?.args?.tokenId?._hex, 16)
+        if (!tnxRes?.transactionHash) return await deleteNFT(createdItem)
+
+        const tokenID = parsedToken ? parseInt(parsedToken?._hex, 16) : parseInt(tnxRes?.events[tnxRes?.events?.length - 1]?.args?.tokenId?._hex, 16)
+
+        console.log("tokenID", tokenID)
 
         new ItemApi()
             .confirm({item: createdItem, tnx: tnxRes, tokenID: tokenID})
@@ -37,7 +46,7 @@ const useHandleNft = ({onRequestClose, callback}) => {
         const data = await handleWeb3.updateNFT()
         if (!data) exit()
 
-        const tnxRes = await data.wait().catch(() => null)
+        const tnxRes = await data.wait().catch(() => data)
         if (!tnxRes) exit()
 
         new ItemApi()

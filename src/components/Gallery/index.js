@@ -64,7 +64,7 @@ const Gallery = () => {
                                 <div key={idx} className={styles.gallery_grid_item}>
                                     <div className={styles.gallery_grid_item_info}>
                                         <div className={styles.gallery_grid_item_info_name}>PFP #1</div>
-                                        <div className={styles.gallery_grid_item_info_id}>Token ID: 15,675</div>
+                                        <div className={styles.gallery_grid_item_info_id}>Token ID: {item?.tokenID}</div>
                                     </div>
                                     <div className={styles.gallery_grid_item_img}>
                                         <img src={item?.link} alt=""/>
