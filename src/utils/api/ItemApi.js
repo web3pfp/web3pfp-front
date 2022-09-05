@@ -31,8 +31,8 @@ export default class ItemApi extends Base {
         return super.get("item/getContract");
     }
 
-    async getTokenContract() {
+    async getTokenContract(data) {
         if (!super.getToken()) return null;
-        return super.get("item/getTokenContract");
+        return super.post("item/getTokenContract", data);
     }
 }
