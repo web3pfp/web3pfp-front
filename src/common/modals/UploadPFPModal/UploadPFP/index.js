@@ -16,7 +16,8 @@ import docImg from "../../../../assets/img/tokens/doc.png"
 const UploadPFP = ({onRequestClose, isReplace, callback, item = null}) => {
     const [{user}] = useContext(Context);
 
-    const handleNft = useHandleNft({item, onRequestClose, callback})
+    const handleLoader = (status) => setIsLoader(status)
+    const handleNft = useHandleNft({item, onRequestClose, callback, handleLoader})
 
     const [imageDescription, setImageDescription] = useState(item?.description ?? "")
     const [isSwitcherOn, setIsSwitcherOn] = useState(false)
@@ -42,8 +43,6 @@ const UploadPFP = ({onRequestClose, isReplace, callback, item = null}) => {
 
     const onDescriptionChanged = (event) => setImageDescription(event.target.value)
 
-    const handleLoader = (status) => setIsLoader(status)
-
     const onItemCreate = async () => {
 
         setIsMintingInProgress(true)
@@ -55,7 +54,7 @@ const UploadPFP = ({onRequestClose, isReplace, callback, item = null}) => {
         formData.append("provider", user?.provider);
         formData.append("isWatermark", `${+isSwitcherOn}`);
 
-        await handleNft.mintNFT(formData, selectedToken, handleLoader)
+        await handleNft.mintNFT(formData, selectedToken)
     }
 
     const onItemUpdate = async () => {
@@ -67,7 +66,7 @@ const UploadPFP = ({onRequestClose, isReplace, callback, item = null}) => {
         formData.append("itemID", item?._id);
         formData.append("isWatermark", `${+isSwitcherOn}`);
 
-        await handleNft.updateNFT(formData, selectedToken, handleLoader)
+        await handleNft.updateNFT(formData, selectedToken)
     }
 
     const availableTokens = () => {

@@ -2,15 +2,16 @@ import React from 'react';
 import ItemApi from "../utils/api/ItemApi";
 import useHandleWeb3 from "./web3/useHandleWeb3";
 
-const useHandleNft = ({onRequestClose, callback}) => {
+const useHandleNft = ({onRequestClose, callback, handleLoader}) => {
     const handleWeb3 = useHandleWeb3();
 
     const exit = () => {
         onRequestClose()
+        handleLoader(false);
         setTimeout(callback, 500)
     }
 
-    const mintNFT = async (formData, selectedToken, handleLoader) => {
+    const mintNFT = async (formData, selectedToken) => {
         handleLoader(true);
 
         const approveData = await handleWeb3.approve(selectedToken);
@@ -41,7 +42,7 @@ const useHandleNft = ({onRequestClose, callback}) => {
             })
     }
 
-    const updateNFT = async (formData, selectedToken, handleLoader) => {
+    const updateNFT = async (formData, selectedToken) => {
         handleLoader(true);
 
         const approveData = await handleWeb3.approve(selectedToken, true);
@@ -57,7 +58,6 @@ const useHandleNft = ({onRequestClose, callback}) => {
         new ItemApi()
             .update(formData)
             .finally(() => {
-                handleLoader(false);
                 exit()
             })
     }
