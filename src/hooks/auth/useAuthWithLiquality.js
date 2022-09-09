@@ -24,13 +24,13 @@ const useAuthWithLiquality = () => {
 
         const account = await signer.getAddress();
 
-        const nonce = await handleUser.getNonce(account).catch(() => null);
+        const nonce = await handleUser.getNonce(account?.toLowerCase()).catch(() => null);
         if (!nonce) return null;
 
         const signature = await signer.signMessage(`I am signing my one-time nonce: ${nonce}`)
 
         return new AuthApi()
-            .loginLiquality({ account: account, signature, provider: chainId, providerName: chain })
+            .loginLiquality({ account: account?.toLowerCase(), signature, provider: chainId, providerName: chain })
             .then((res) => {
                 if (res?.status) {
                     ACTION.SET_USER(res?.data?.user);
