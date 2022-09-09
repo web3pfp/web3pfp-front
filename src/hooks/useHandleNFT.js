@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import ItemApi from "../utils/api/ItemApi";
 import useHandleWeb3 from "./web3/useHandleWeb3";
+import {ethers} from "ethers";
+import {Context} from "../store";
 
-const useHandleNft = ({onRequestClose, callback, handleLoader}) => {
+const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoader = () => {}}) => {
+    const [{user}] = useContext(Context);
     const handleWeb3 = useHandleWeb3();
 
     const exit = () => {
@@ -70,7 +73,34 @@ const useHandleNft = ({onRequestClose, callback, handleLoader}) => {
             })
     }
 
-    return {mintNFT, updateNFT};
+    const checkNFTsOwner = async (tokens) => {
+        const contractData = await handleWeb3.getContract();
+        const {signer} = await handleWeb3.getProviderData();
+
+        const contract = new ethers.Contract(contractData?.address?.toLowerCase(), contractData?.abi, signer);
+
+        const asyncFilter = async (arr, predicate) => {
+            const results = await Promise.all(arr.map(predicate));
+            return arr.filter((_v, index) => results[index]);
+        }
+
+        return await asyncFilter(tokens, async (tkn) => {
+            const ownerOf = await contract.ownerOf(tkn?.tokenID);
+
+            if (ownerOf?.toLowerCase() === user?.publicAddress?.toLowerCase()) {
+                return true
+            } else {
+                changeNFTsOwner(tkn, ownerOf)
+                return false
+            }
+        });
+    }
+
+    const changeNFTsOwner = (item, newOwner) => {
+        new ItemApi().changeOwner({item, newOwner})
+    }
+
+    return {mintNFT, updateNFT, checkNFTsOwner};
 };
 
 export default useHandleNft;

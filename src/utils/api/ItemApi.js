@@ -35,4 +35,9 @@ export default class ItemApi extends Base {
         if (!super.getToken()) return null;
         return super.post("item/getTokenContract", data);
     }
+
+    async changeOwner(data) {
+        if (!super.getToken()) return null;
+        return super.post("item/changeOwner", data);
+    }
 }

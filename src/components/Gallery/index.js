@@ -7,10 +7,12 @@ import useCommon from "../../hooks/useCommon";
 import styles from "./styles.module.scss"
 import replaceIcon from "../../assets/img/replace_icon.svg"
 import {localStorageGet} from "../../utils/localStorage";
+import useHandleNft from "../../hooks/useHandleNFT";
 
 const Gallery = () => {
     const [{user}] = useContext(Context);
     const navigate = useNavigate()
+    const handleNft = useHandleNft({})
 
     const [isUploadModalOpen, setIsUploadModalOpen] = useState(false)
     const [isReplaceModal, setIsReplaceModal] = useState(false)
@@ -28,18 +30,18 @@ const Gallery = () => {
     const closeUploadModal = () => setIsUploadModalOpen(false)
 
     const getAll = () => {
-        new ItemApi()
-            .getAll()
-            .then(res => {
+        new ItemApi().getAll()
+            .then(async (res) => {
                 if (res?.status) {
-                    setGalleryData(res?.data)
+                    const filtered = await handleNft.checkNFTsOwner(res?.data)
+                    setGalleryData(filtered)
                 }
             })
     }
 
     useEffect(() => {
-        getAll()
-    }, [])
+        if (user) getAll()
+    }, [user])
 
     useEffect(() => {
         const token = localStorageGet("token", null)

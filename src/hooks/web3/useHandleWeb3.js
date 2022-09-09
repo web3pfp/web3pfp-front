@@ -33,6 +33,16 @@ const useHandleWeb3 = () => {
             .then(res => res?.status ? res?.data : null);
     }
 
+    const getProviderData = async () => {
+        const provider = new ethers.providers.Web3Provider(window?.[user?.["providerName"]], "any");
+
+        const signer = await provider.getSigner();
+        const address = await signer.getAddress();
+        const nonce = await signer.getTransactionCount();
+
+        return {signer, address, nonce}
+    }
+
     const getTokenContract = async (data) => {
         return new ItemApi()
             .getTokenContract(data)
@@ -47,11 +57,7 @@ const useHandleWeb3 = () => {
         });
         if (!contractData) return null;
 
-        const provider = new ethers.providers.Web3Provider(window?.[user?.["providerName"]], "any");
-
-        const signer = await provider.getSigner();
-        const address = await signer.getAddress();
-        const nonce = await signer.getTransactionCount();
+        const {signer, address, nonce} = await getProviderData();
 
         const tokenContract = new ethers.Contract(tokenContractData?.address, tokenContractData?.abi, signer);
 
@@ -142,11 +148,7 @@ const useHandleWeb3 = () => {
         });
         if (!contractData) return null;
 
-        const provider = new ethers.providers.Web3Provider(window?.[user?.["providerName"]], "any");
-
-        const signer = await provider.getSigner();
-        const address = await signer.getAddress();
-        const nonce = await signer.getTransactionCount();
+        const {signer, address, nonce} = await getProviderData();
 
         const contract = new ethers.Contract(contractData?.address?.toLowerCase(), contractData?.abi, signer);
 
@@ -202,10 +204,7 @@ const useHandleWeb3 = () => {
         });
         if (!contractData) return null;
 
-        const provider = new ethers.providers.Web3Provider(window?.[user?.["providerName"]], "any");
-
-        const signer = await provider.getSigner();
-        const address = await signer.getAddress();
+        const {signer, address} = await getProviderData()
 
         const tokenContract = new ethers.Contract(tokenContractData?.address, tokenContractData?.abi, signer);
         const decimals = await tokenContract.decimals();
@@ -247,7 +246,15 @@ const useHandleWeb3 = () => {
 
     }
 
-    return {getNetwork, loadWeb3, mintNFT, updateNFT, approve}
+    return {
+        getNetwork,
+        loadWeb3,
+        mintNFT,
+        updateNFT,
+        approve,
+        getProviderData,
+        getContract,
+    }
 };
 
 export default useHandleWeb3;
