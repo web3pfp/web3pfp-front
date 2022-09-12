@@ -63,6 +63,12 @@ const UserLayout = ({children}) => {
             <div className="footer">
                 <div className="footer_logo"/>
                 <div className="footer_text">Copyright © 2022 Web3PFP. All rights reserved</div>
+                <div className="footer_legal_links">
+                    <a href={pathList.privacy.path}>Privacy Policy</a>
+                    <a href={pathList.terms.path}>Terms and Conditions</a>
+                    <a href={pathList.disclaimer.path}>Disclaimer</a>
+                    <a href={pathList.cookies.path}>Cookies Policy</a>
+                </div>
             </div>
             <CautionModal
                 onRequestClose={closeCautionModalOpen}

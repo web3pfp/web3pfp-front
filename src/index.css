@@ -74,6 +74,10 @@ a{
 .footer{
     position: relative;
     margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
 }
 
 .footer_logo{
@@ -100,6 +104,16 @@ a{
 
 .main_page .footer_text{
     color: #AFAFAF;
+}
+
+.footer_legal_links a{
+    font-weight: 400;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.footer_legal_links a + a{
+    margin-left: 10px;
 }
 
 @media screen and (max-width: 1200px){
@@ -149,5 +163,9 @@ a{
     .top_buttons_item.top_buttons_item_wallet{
         width: 126px;
         border-radius: 0 0 0 67px;
+    }
+
+    .footer{
+        flex-wrap: wrap;
     }
 }
