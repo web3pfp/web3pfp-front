@@ -40,6 +40,7 @@
       background-color: #fff;
       color: #0C6372;
       font-size: 20px;
+      padding: 0 40px;
     }
 
     img{
@@ -56,6 +57,13 @@
     align-items: flex-start;
     justify-content: center;
     padding: 0 30px;
+
+    @media screen and (max-width: 767px){
+      flex-direction: column;
+      padding: 0;
+      max-width: 400px;
+      margin: 0 auto;
+    }
   }
 
   &_wallet{
@@ -64,6 +72,12 @@
     justify-content: center;
     align-items: center;
     margin-left: 50px;
+
+    @media screen and (max-width: 767px){
+      width: 100%;
+      margin-left: 0;
+      margin-top: 60px;
+    }
 
     & + &{
       margin-left: 40px;
@@ -81,6 +95,11 @@
       align-items: center;
       grid-template-columns: repeat(6, 1fr);
       grid-gap: 15px;
+
+      @media screen and (max-width: 767px){
+        grid-template-columns: 1fr;
+        width: 100%;
+      }
     }
 
     &_button_item{
@@ -95,8 +114,17 @@
       grid-column:span 2;
       cursor: pointer;
 
+      @media screen and (max-width: 767px){
+        grid-column: unset;
+      }
+
       &.metamask{
         margin-top: 80px;
+
+        @media screen and (max-width: 767px){
+          margin: 0 auto;
+          width: 100%;
+        }
       }
 
       &.disabled{
@@ -107,6 +135,10 @@
       &:nth-child(4),
       &:nth-child(5){
         grid-column:span 3;
+
+        @media screen and (max-width: 767px){
+          grid-column: unset;
+        }
       }
 
       &:hover{

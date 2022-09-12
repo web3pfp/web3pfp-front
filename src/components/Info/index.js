@@ -1,7 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styles from './styles.module.scss'
 
 const Info = () => {
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
     return (
         <div>
             <div className={styles.orange_badge}>Learn More</div>

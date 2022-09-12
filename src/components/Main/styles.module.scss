@@ -439,7 +439,7 @@
     }
 
     @media screen and (max-width: 767px){
-      margin-bottom: 50px;
+      margin-bottom: 20px;
     }
   }
 
@@ -465,6 +465,10 @@
 
     @media screen and (max-width: 1400px){
       padding-left: 73px;
+    }
+
+    @media screen and (max-width: 1000px){
+      padding-right: 100px;
     }
 
     @media screen and (max-width: 767px){
@@ -646,7 +650,8 @@
     }
 
     @media screen and (max-width: 767px){
-      display: none;
+      margin-bottom: 0;
+      margin-top: 40px;
     }
   }
 
