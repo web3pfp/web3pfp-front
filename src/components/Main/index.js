@@ -167,10 +167,10 @@ const Main = () => {
             <div className={styles.main_info_wrap}>
                 <div className={styles.main_info_text}>
                     <p>An opt-in forward facing identity for yourself or your pseudonyms intended to encourage the establishment of an open security framework for online communities. </p>
-                    <p>Web3PFPs are ERC721 NFTs paired with IPNS keys held in a private IPFS server accesible by the NFT holder.</p>
+                    <p>Web3PFPs are ERC721 NFTs paired with IPNS keys held in a private IPFS server accessible by the NFT holder.</p>
                     <p>These access key tokens allow users to change the final destination (image) each IPNS address in the NFT metadata points to.</p>
                     <p>Each Web3PFP NFT displays a user-uploaded profile picture that can be changed whenever by the token holder.</p>
-                    <p>Online communities can utilize the blockchain security behind the Web3PFP to apply an initial layer of security across an increasing amount of social media platforms to help keep their community members safe.</p>
+                    <p>Online communities can utilize the blockchain security behind the Web3PFP to apply an initial layer of security across an increasing number of social media platforms to help keep their community members safe.</p>
                     <Link to={pathList.info.path} className={styles.main_info_text_more}><span>Learn More</span></Link>
                 </div>
                 <div className={styles.main_info_img}>

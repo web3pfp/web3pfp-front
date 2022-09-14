@@ -18,8 +18,11 @@ const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoa
         handleLoader(true);
 
         const approveData = await handleWeb3.approve(selectedToken);
-        if (!approveData) return null;
-
+        if (!approveData) {
+            console.error("NFT hasn't been created -  not approved");
+            exit();
+            return null;
+        }
 
         const createdItem = await new ItemApi()
             .create(formData)
@@ -29,13 +32,20 @@ const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoa
         const data = await handleWeb3.mintNFT(createdItem, selectedToken);
         const parsedToken = data?.tokenID || null;
 
-        if (!data) return await deleteNFT(createdItem);
+        if (!data) {
+            console.error("NFT hasn't been created");
+            return await deleteNFT(createdItem);
+        }
 
         const tnxRes = await data?.wait()?.catch(() => data);
 
-        if (!tnxRes?.transactionHash) return await deleteNFT(createdItem);
+        if (!tnxRes?.transactionHash) {
+            console.error("NFT hasn't been created - empty transaction hash");
+            return await deleteNFT(createdItem);
+        }
 
         const tokenID = parsedToken ? parseInt(parsedToken?._hex, 16) : parseInt(tnxRes?.events[tnxRes?.events?.length - 1]?.args?.tokenId?._hex, 16);
+        console.log("tokenID", tokenID)
 
         new ItemApi()
             .confirm({item: createdItem, tnx: tnxRes, tokenID: tokenID})

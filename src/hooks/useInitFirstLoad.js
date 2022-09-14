@@ -17,8 +17,11 @@ const useInitFirstLoad = () => {
 
     useEffect( () => {
         initUser()
-        initWeb3()
     }, [])
+
+    useEffect( () => {
+        if (user) initWeb3()
+    }, [user])
 
 
 

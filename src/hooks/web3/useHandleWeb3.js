@@ -14,6 +14,17 @@ const useHandleWeb3 = () => {
 
             window.ethereum.on("accountsChanged", () => accountsChangedCallback());
             window.ethereum.on("chainChanged", () => accountsChangedCallback());
+
+            if (user){
+                const provider = new ethers.providers.Web3Provider(window?.[user?.["providerName"]], "any");
+
+                const acc = await provider.send("eth_requestAccounts", []);
+                const network = await provider.getNetwork();
+
+                if (acc[0]?.toLowerCase() !== user?.publicAddress?.toLowerCase() || network?.chainId !== user?.provider) accountsChangedCallback();
+            }
+
+
         } else if (window.web3) {
             window.web3 = new Web3(window.web3.currentProvider);
         } else {
