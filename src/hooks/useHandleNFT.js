@@ -29,6 +29,8 @@ const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoa
             .then(res => res?.status ? res?.data : null)
             .catch(() => null);
 
+        console.log("createdItem", createdItem)
+
         const data = await handleWeb3.mintNFT(createdItem, selectedToken);
         const parsedToken = data?.tokenID || null;
 
