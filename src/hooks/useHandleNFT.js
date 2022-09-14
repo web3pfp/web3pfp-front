@@ -40,6 +40,7 @@ const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoa
         const tnxRes = await data?.wait()?.catch(() => data);
 
         if (!tnxRes?.transactionHash) {
+            console.log("transaction: ", tnxRes)
             console.error("NFT hasn't been created - empty transaction hash");
             return await deleteNFT(createdItem);
         }
