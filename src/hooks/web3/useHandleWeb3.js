@@ -98,9 +98,11 @@ const useHandleWeb3 = () => {
         const approve = new Promise(async (resolve) => {
             const res = await tokenContract.approve(contractData?.address?.toLowerCase(), BigNumber.from(sum.toString()))
                 .then(res => {
+                    console.log("approve res ->", res)
                     resolve(res);
                 })
                 .catch(err => {
+                    console.log("approve err ->", err)
                     resolve(err);
                 })
 
@@ -189,8 +191,14 @@ const useHandleWeb3 = () => {
             const res = contract.mintNFT(address, `https://ipfs.pragmaticdlt.com/ipns/${item?.ipnsLink}`, BigNumber.from(sum.toString()), tokenContractData?.address?.toLowerCase(), {
                 gasLimit: 210000,
             })
-                .then(res => resolve(res))
-                .catch(err => resolve(err))
+                .then(res => {
+                    console.log("mint res ->", res)
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log("mint err ->", err)
+                    resolve(err)
+                })
 
             return res;
         })
