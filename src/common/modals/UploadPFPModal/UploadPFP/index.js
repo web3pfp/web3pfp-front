@@ -17,11 +17,15 @@ const UploadPFP = ({onRequestClose, isReplace, callback, item = null}) => {
     const [{user}] = useContext(Context);
     const [isUploadError, setIsUploadError] = useState(false)
     const [isLoader, setIsLoader] = useState(false)
+    const [uploadedImage, setUploadedImage] = useState(null)
+    const [imagePreview, setImagePreview] = useState(null)
 
 
     const handleUploadError = () => {
         setIsLoader(false);
         setIsUploadError(true);
+        setUploadedImage(null);
+        setImagePreview(null);
     }
 
     const handleLoader = (status) => setIsLoader(status)
@@ -30,8 +34,6 @@ const UploadPFP = ({onRequestClose, isReplace, callback, item = null}) => {
 
     const [imageDescription, setImageDescription] = useState(item?.description ?? "")
     const [isSwitcherOn, setIsSwitcherOn] = useState(false)
-    const [uploadedImage, setUploadedImage] = useState(null)
-    const [imagePreview, setImagePreview] = useState(null)
     const [selectedToken, setSelectedToken] = useState(null)
 
     const [isMintDisabled, setIsMintDisabled] = useState(true)
