@@ -28,7 +28,10 @@ const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoa
             .create(formData)
             .then(res => res?.status ? res?.data : null)
             .catch(() => null);
-        if (!createdItem) exit();
+        if (!createdItem) {
+            exit();
+            return null;
+        };
 
         console.log("createdItem", createdItem)
 
