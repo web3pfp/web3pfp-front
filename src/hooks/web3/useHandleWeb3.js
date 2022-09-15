@@ -179,6 +179,14 @@ const useHandleWeb3 = () => {
 
                 event.removeListener();
 
+                console.log("nonce", nonce)
+                console.log("tnx.nonce", tnx.nonce)
+                console.log("nonce bool", tnx.nonce === nonce)
+
+                console.log("address", address?.toLowerCase())
+                console.log("from", tnx.from?.toLowerCase())
+                console.log("address bool", address?.toLowerCase() === tnx.from?.toLowerCase())
+
                 if (nonce === tnx.nonce && address?.toLowerCase() === tnx.from?.toLowerCase()) {
                     resolve({...tnx, tokenID: decodeData[1]});
                 } else {
