@@ -33,6 +33,7 @@ const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoa
 
         const data = await handleWeb3.mintNFT(createdItem, selectedToken);
         const parsedToken = data?.tokenID || null;
+        console.log("mintNFT data: ", data)
 
         if (!data) {
             console.error("NFT hasn't been created");

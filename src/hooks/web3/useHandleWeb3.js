@@ -206,9 +206,11 @@ const useHandleWeb3 = () => {
         const mintRes = await mint
 
         if (mintRes.toString().includes("user rejected transaction")) {
+            console.log("if")
             contract.removeAllListeners("Transfer")
             return null
         } else {
+            console.log("else")
             return await data
         }
 
