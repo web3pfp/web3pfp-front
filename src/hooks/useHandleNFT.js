@@ -4,7 +4,7 @@ import useHandleWeb3 from "./web3/useHandleWeb3";
 import {ethers} from "ethers";
 import {Context} from "../store";
 
-const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoader = () => {}}) => {
+const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoader = () => {}, handleUploadError = () => {}}) => {
     const [{user}] = useContext(Context);
     const handleWeb3 = useHandleWeb3();
 
@@ -29,15 +29,12 @@ const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoa
             .then(res => res?.status ? res?.data : null)
             .catch(() => null);
         if (!createdItem) {
-            exit();
+            handleUploadError();
             return null;
-        };
-
-        console.log("createdItem", createdItem)
+        }
 
         const data = await handleWeb3.mintNFT(createdItem, selectedToken);
         const parsedToken = data?.tokenID || null;
-        console.log("mintNFT data: ", data)
 
         if (!data) {
             console.error("NFT hasn't been created");
@@ -46,10 +43,7 @@ const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoa
 
         const tnxRes = await data?.wait()?.catch(() => data);
 
-        console.log("tnxRes", tnxRes)
-
         if (!tnxRes?.transactionHash) {
-            console.log("transaction: ", tnxRes)
             console.error("NFT hasn't been created - empty transaction hash");
             return await deleteNFT(createdItem);
         }

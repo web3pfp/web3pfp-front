@@ -96,11 +96,9 @@ const useHandleWeb3 = () => {
         const approve = new Promise(async (resolve) => {
             const res = await tokenContract.approve(contractData?.address?.toLowerCase(), BigNumber.from(sum.toString()))
                 .then(res => {
-                    console.log("approve res ->", res)
                     resolve(res);
                 })
                 .catch(err => {
-                    console.log("approve err ->", err)
                     resolve(err);
                 })
 
@@ -159,7 +157,7 @@ const useHandleWeb3 = () => {
         });
         if (!contractData) return null;
 
-        const {signer, address, nonce} = await getProviderData();
+        const {signer, address} = await getProviderData();
 
         const contract = new ethers.Contract(contractData?.address?.toLowerCase(), contractData?.abi, signer);
 
@@ -177,14 +175,6 @@ const useHandleWeb3 = () => {
 
                 event.removeListener();
 
-                console.log("nonce", nonce)
-                console.log("tnx.nonce", tnx.nonce)
-                console.log("nonce bool", tnx.nonce === nonce)
-
-                console.log("address", address?.toLowerCase())
-                console.log("from", tnx.from?.toLowerCase())
-                console.log("address bool", address?.toLowerCase() === tnx.from?.toLowerCase())
-
                 if (address?.toLowerCase() === tnx.from?.toLowerCase()) {
                     resolve({...tnx, tokenID: decodeData[1]});
                 }
@@ -196,11 +186,9 @@ const useHandleWeb3 = () => {
                 gasLimit: 210000,
             })
                 .then(res => {
-                    console.log("mint res ->", res)
                     resolve(res)
                 })
                 .catch(err => {
-                    console.log("mint err ->", err)
                     resolve(err)
                 })
 
@@ -210,11 +198,9 @@ const useHandleWeb3 = () => {
         const mintRes = await mint
 
         if (mintRes.toString().includes("user rejected transaction")) {
-            console.log("if")
             contract.removeAllListeners("Transfer")
             return null
         } else {
-            console.log("else", await data)
             return await data
         }
 

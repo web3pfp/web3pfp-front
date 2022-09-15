@@ -15,9 +15,18 @@ import docImg from "../../../../assets/img/tokens/doc.png"
 
 const UploadPFP = ({onRequestClose, isReplace, callback, item = null}) => {
     const [{user}] = useContext(Context);
+    const [isUploadError, setIsUploadError] = useState(false)
+    const [isLoader, setIsLoader] = useState(false)
+
+
+    const handleUploadError = () => {
+        setIsLoader(false);
+        setIsUploadError(true);
+    }
 
     const handleLoader = (status) => setIsLoader(status)
-    const handleNft = useHandleNft({item, onRequestClose, callback, handleLoader})
+    const handleNft = useHandleNft({item, onRequestClose, callback, handleLoader, handleUploadError})
+
 
     const [imageDescription, setImageDescription] = useState(item?.description ?? "")
     const [isSwitcherOn, setIsSwitcherOn] = useState(false)
@@ -27,10 +36,10 @@ const UploadPFP = ({onRequestClose, isReplace, callback, item = null}) => {
 
     const [isMintDisabled, setIsMintDisabled] = useState(true)
     const [isMintingInProgress, setIsMintingInProgress] = useState(false)
-    const [isLoader, setIsLoader] = useState(false)
 
     const onImageChanged = (event) => {
         if (event.target.files[0]) {
+            setIsUploadError(false);
             setUploadedImage(event.target.files[0])
             setImagePreview(URL.createObjectURL(event.target.files[0]))
             setIsMintDisabled(false)
@@ -44,6 +53,7 @@ const UploadPFP = ({onRequestClose, isReplace, callback, item = null}) => {
     const onDescriptionChanged = (event) => setImageDescription(event.target.value)
 
     const onItemCreate = async () => {
+        setIsUploadError(false);
 
         setIsMintingInProgress(true)
 
@@ -58,6 +68,7 @@ const UploadPFP = ({onRequestClose, isReplace, callback, item = null}) => {
     }
 
     const onItemUpdate = async () => {
+        setIsUploadError(false);
 
         const formData = new FormData()
 
@@ -164,6 +175,9 @@ const UploadPFP = ({onRequestClose, isReplace, callback, item = null}) => {
                             : <>Upload a File for your PFP</>
                     }
                 </div>
+                {
+                    isUploadError && <div className={styles.upload_modal_error}>IPNS timeout. Please reload file again</div>
+                }
                 {
                     isReplace && <div className={styles.upload_modal_info}>You can change this file at any time without affecting your NFT’s token ID.</div>
                 }

@@ -52,6 +52,18 @@ $watermark_switcher_margin: 37px;
       }
     }
   }
+  
+  &_error{
+    color: #f00;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+
+  &_error + &_content{
+    margin-top: 0;
+  }
 
   &_info{
     width: 315px;
