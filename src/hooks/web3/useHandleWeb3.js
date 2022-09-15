@@ -68,7 +68,7 @@ const useHandleWeb3 = () => {
         });
         if (!contractData) return null;
 
-        const {signer, address, nonce} = await getProviderData();
+        const {signer, address} = await getProviderData();
 
         const tokenContract = new ethers.Contract(tokenContractData?.address, tokenContractData?.abi, signer);
 
@@ -87,10 +87,8 @@ const useHandleWeb3 = () => {
                 event.removeListener();
                 event?.transactionHash && address.toLowerCase() === receipt?.from?.toLowerCase() ? resolve(event) : resolve(null);
 
-                if (nonce === tnx.nonce && address?.toLowerCase() === tnx.from?.toLowerCase() && event?.transactionHash) {
+                if (address?.toLowerCase() === tnx.from?.toLowerCase() && event?.transactionHash) {
                     resolve(tnx);
-                } else {
-                    resolve(null);
                 }
             });
         })
@@ -187,10 +185,8 @@ const useHandleWeb3 = () => {
                 console.log("from", tnx.from?.toLowerCase())
                 console.log("address bool", address?.toLowerCase() === tnx.from?.toLowerCase())
 
-                if (nonce === tnx.nonce && address?.toLowerCase() === tnx.from?.toLowerCase()) {
+                if (address?.toLowerCase() === tnx.from?.toLowerCase()) {
                     resolve({...tnx, tokenID: decodeData[1]});
-                } else {
-                    resolve(null);
                 }
             });
         })
