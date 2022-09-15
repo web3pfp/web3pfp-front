@@ -210,7 +210,7 @@ const useHandleWeb3 = () => {
             contract.removeAllListeners("Transfer")
             return null
         } else {
-            console.log("else", data)
+            console.log("else", await data)
             return await data
         }
 
