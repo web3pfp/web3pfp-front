@@ -96,17 +96,22 @@
 
     @media screen and (max-width: 767px){
       width: 250px;
+      height: 254px;
       position: absolute;
       top: calc(100% - 20px);
       right: -50px;
 
       img{
-        position: static;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
         transform: unset;
+        top: 0;
+        left: 0;
       }
     }
 
-    @media screen and (max-width: 420px){
+    @media screen and (max-width: 490px){
       width: 200px;
       right: -45px;
     }
