@@ -1,10 +1,9 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {Context} from "../../store";
 import {pathList} from "../../routes/path";
 import UploadPFPModal from "../../common/modals/UploadPFPModal";
 import styles from "./styles.module.scss";
-import rosaImg from "../../assets/img/main_rosa.png"
 import bitcoinImg from '../../assets/img/bitcoin.png'
 import rskImg from '../../assets/img/rsk_rif.svg'
 import ethImg from '../../assets/img/eth.png'
@@ -25,6 +24,10 @@ import polygonIcon from "../../assets/img/tokens/polygon.png";
 import binanceIcon from "../../assets/img/tokens/binance.png";
 import avaxIcon from "../../assets/img/tokens/avax.png";
 
+import slideOne from "../../assets/img/main_slide_1.png"
+import slideTwo from "../../assets/img/main_slide_2.png"
+import slideThree from "../../assets/img/main_slide_3.png"
+
 const Main = () => {
     const [{user}, ACTION] = useContext(Context);
 
@@ -32,6 +35,7 @@ const Main = () => {
 
     const [isUploadModalOpen, setIsUploadModalOpen] = useState(false)
     const [isReplaceModal, setIsReplaceModal] = useState(false)
+    const [activeSlide, setActiveSlide] = useState(0)
     const [isWallets] = useState(!!window?.ethereum || !!window?.eth)
 
     const openUploadModal = (type) => {
@@ -51,18 +55,35 @@ const Main = () => {
         }
     }
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setActiveSlide(activeSlide === slides?.length - 1 ? 0 : activeSlide + 1)
+        }, 3000)
+
+        return () => clearInterval(interval)
+    }, [activeSlide])
+
     const closeUploadModal = () => setIsUploadModalOpen(false)
+
+    const slides = [
+        slideOne,
+        slideTwo,
+        slideThree
+    ]
 
     return (
         <div>
             <div className={styles.orange_badge_main}>
                 <div className={styles.orange_badge_main_img}>
-                    <img src={rosaImg} alt=""/>
+                    {
+                        slides.map((slide, idx) => <img className={`${idx === activeSlide ? styles.active : ""}`} src={slide} key={idx} alt=""/>)
+                    }
                 </div>
                 <div className={styles.orange_badge_main_text}>
                     Introducing
                     <br/>
                     <span>Web3PFP</span>
+                    alpha
                 </div>
             </div>
             <div className={styles.controls}>
