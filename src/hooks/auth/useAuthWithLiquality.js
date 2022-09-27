@@ -13,12 +13,11 @@ const useAuthWithLiquality = () => {
     const loginLiquality = async (chain) => {
 
         if (!window?.[chain]) return null;
+        await window?.[chain]?.enable();
 
         const provider = new ethers.providers.Web3Provider(window?.[chain], "any");
 
         const chainId = +(await provider.getNetwork()).chainId;
-
-        await window?.[chain]?.enable();
 
         const signer = provider.getSigner();
 

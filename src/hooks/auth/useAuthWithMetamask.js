@@ -17,6 +17,7 @@ const useAuthWithMetamask = () => {
         if (!window?.ethereum) return null;
 
         const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+        await provider.send("eth_requestAccounts", []);
 
         const chainId = await handleWeb3.getNetwork();
 
