@@ -44,10 +44,10 @@ const Auth = ({onRequestClose}) => {
                                 <img src={ethLogo} alt=""/>
                                 <span>Ethereum</span>
                             </div>
-                            <div className={`${styles.auth_modal_wallet_button_item} ${styles.disabled}`} onClick={() => authWithLiquality.loginLiquality("polygon")}>
-                                <img src={polygonLogo} alt=""/>
-                                <span>Polygon</span>
-                            </div>
+                            {/*<div className={`${styles.auth_modal_wallet_button_item} ${styles.disabled}`} onClick={() => authWithLiquality.loginLiquality("polygon")}>*/}
+                            {/*    <img src={polygonLogo} alt=""/>*/}
+                            {/*    <span>Polygon</span>*/}
+                            {/*</div>*/}
                             <div className={`${styles.auth_modal_wallet_button_item} ${!isLiquality ? styles.disabled : ""}`} onClick={() => authWithLiquality.loginLiquality("bsc")}>
                                 <img src={binanceLogo} alt=""/>
                                 <span>Binance SC</span>
