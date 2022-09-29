@@ -99,6 +99,7 @@ const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoa
         }
 
         return await asyncFilter(tokens, async (tkn) => {
+            if (tkn?.provider !== user?.provider) return true
             const ownerOf = await contract.ownerOf(tkn?.tokenID);
 
             if (ownerOf?.toLowerCase() === user?.publicAddress?.toLowerCase()) {

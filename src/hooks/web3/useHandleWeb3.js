@@ -44,6 +44,12 @@ const useHandleWeb3 = () => {
             .then(res => res?.status ? res?.data : null);
     }
 
+    const getContractByProvider = async (data) => {
+        return new ItemApi()
+            .getContractByProvider(data)
+            .then(res => res?.status ? res?.data : null);
+    }
+
     const getProviderData = async () => {
         const provider = new ethers.providers.Web3Provider(window?.[user?.["providerName"]], "any");
 
@@ -171,7 +177,11 @@ const useHandleWeb3 = () => {
                 const receipt = await event.getTransactionReceipt();
                 const tnx = await event.getTransaction();
 
-                const decodeData = await ethers.utils.defaultAbiCoder.decode([ "address", "uint256" ], receipt.logs[receipt.logs.length - 1].data);
+                const dataToDecode = receipt.logs.find(log => {
+                    return log.data.includes(user?.publicAddress?.slice(2, -1))
+                })
+
+                const decodeData = await ethers.utils.defaultAbiCoder.decode([ "address", "uint256" ], dataToDecode.data);
 
                 event.removeListener();
 
@@ -265,6 +275,7 @@ const useHandleWeb3 = () => {
         approve,
         getProviderData,
         getContract,
+        getContractByProvider,
     }
 };
 
