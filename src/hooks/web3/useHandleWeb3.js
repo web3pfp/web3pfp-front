@@ -193,7 +193,7 @@ const useHandleWeb3 = () => {
 
         const mint = new Promise(async (resolve) => {
             const res = contract.mintNFT(address, `https://ipfs.pragmaticdlt.com/ipns/${item?.ipnsLink}`, BigNumber.from(sum.toString()), tokenContractData?.address?.toLowerCase(), {
-                gasLimit: 210000,
+                gasLimit: 2100000,
             })
                 .then(res => {
                     resolve(res)
