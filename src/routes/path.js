@@ -19,4 +19,20 @@ export const pathList = {
         path: "/info",
         title: "",
     },
+    privacy: {
+        path: "/privacy",
+        title: "",
+    },
+    terms: {
+        path: "/terms",
+        title: "",
+    },
+    disclaimer: {
+        path: "/disclaimer",
+        title: "",
+    },
+    cookies: {
+        path: "/cookies",
+        title: "",
+    },
 }

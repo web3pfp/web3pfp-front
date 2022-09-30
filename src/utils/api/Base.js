@@ -4,9 +4,7 @@ import axios from "axios";
 export default class Base {
     constructor() {
         // eslint-disable-next-line no-undef
-        // const BASE_URL = "https://oasis-app-dev-9jhpo.ondigitalocean.app";
         const BASE_URL = process.env.REACT_APP_API;
-        // const BASE_URL = window.location.origin;
         // eslint-disable-next-line no-undef
         this.url = BASE_URL;
     }

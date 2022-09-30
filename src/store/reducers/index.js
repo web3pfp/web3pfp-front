@@ -1,12 +1,17 @@
 import {types} from "../types";
 
 export const initialState = {
-    pageName: null,
+    user: null,
+    loginModal: false,
 }
 
 export const reducers = {
-    [types.SET_PORTFOLIO_LIST]: (state, pageName) => ({
+    [types.SET_USER]: (state, user) => ({
         ...state,
-        pageName,
+        user,
+    }),
+    [types.SET_LOGIN_MODAL]: (state, loginModal) => ({
+        ...state,
+        loginModal,
     }),
 };

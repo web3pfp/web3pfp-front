@@ -46,6 +46,11 @@ a{
     margin-left: auto;
 }
 
+.top_buttons_item.top_buttons_item_wallet img{
+    width: 30px;
+    margin-right: 10px;
+}
+
 .page{
     background-image: url(./assets/img/main_bg.svg);
     padding-top: 100px;
@@ -69,18 +74,46 @@ a{
 .footer{
     position: relative;
     margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
 }
 
 .footer_logo{
     position: absolute;
     left: 10px;
     bottom: 100%;
+    width: 79px;
+    height: 79px;
+    background-image: url(./assets/img/copy_logo.svg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.main_page .footer_logo{
+    background-image: url(./assets/img/copy_logo_grey.svg);
 }
 
 .footer_text{
     font-weight: 400;
     font-size: 12px;
     color: rgba(255, 255, 255, 0.5);
+}
+
+.main_page .footer_text{
+    color: #AFAFAF;
+}
+
+.footer_legal_links a{
+    font-weight: 400;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.footer_legal_links a + a{
+    margin-left: 10px;
 }
 
 @media screen and (max-width: 1200px){
@@ -130,5 +163,9 @@ a{
     .top_buttons_item.top_buttons_item_wallet{
         width: 126px;
         border-radius: 0 0 0 67px;
+    }
+
+    .footer{
+        flex-wrap: wrap;
     }
 }

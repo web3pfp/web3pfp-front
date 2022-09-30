@@ -1,10 +1,10 @@
 import React from 'react';
 import UserLayout from "../../layout/UserLayout";
 
-const UserRoutes = ({element: Component}) => {
+const UserRoutes = ({element: Component, page}) => {
     return (
         <UserLayout>
-            <Component/>
+            <Component page={page}/>
         </UserLayout>
     );
 };
