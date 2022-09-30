@@ -80,12 +80,7 @@ const useHandleWeb3 = () => {
 
         const allowance = await tokenContract.allowance(address, contractData?.address);
         const decimals = await tokenContract.decimals();
-        const sum = isUpdate ? +(process.env.REACT_APP_UPDATE_PRICE) * (10 ** decimals) : +(process.env.REACT_APP_MINTING_PRICE) * (10 ** decimals)
-
-        console.log("REACT_APP_MINTING_PRICE", process.env.REACT_APP_MINTING_PRICE)
-        console.log("REACT_APP_MINTING_PRICE", +process.env.REACT_APP_MINTING_PRICE)
-        console.log("sum", sum)
-        console.log("sum", BigNumber.from(sum.toString()))
+        const sum = isUpdate ? +process.env.REACT_APP_UPDATE_PRICE * (10 ** decimals) : +process.env.REACT_APP_MINTING_PRICE * (10 ** decimals)
 
         if (parseInt(allowance._hex, 16) >= sum) return true;
 
@@ -175,12 +170,7 @@ const useHandleWeb3 = () => {
         const tokenContract = new ethers.Contract(tokenContractData?.address, tokenContractData?.abi, signer);
         const decimals = await tokenContract.decimals();
 
-        const sum = +(process.env.REACT_APP_MINTING_PRICE) * (10 ** decimals)
-
-        console.log("REACT_APP_MINTING_PRICE", process.env.REACT_APP_MINTING_PRICE)
-        console.log("REACT_APP_MINTING_PRICE", +process.env.REACT_APP_MINTING_PRICE)
-        console.log("sum", sum)
-        console.log("sum", BigNumber.from(sum.toString()))
+        const sum = +process.env.REACT_APP_MINTING_PRICE * (10 ** decimals)
 
         const data = new Promise((resolve) => {
             contract.on("Transfer", async (from, to, amount, event) => {
