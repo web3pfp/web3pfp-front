@@ -82,6 +82,8 @@ const useHandleWeb3 = () => {
         const decimals = await tokenContract.decimals();
         const sum = isUpdate ? +(process.env.REACT_APP_UPDATE_PRICE) * (10 ** decimals) : +(process.env.REACT_APP_MINTING_PRICE) * (10 ** decimals)
 
+        console.log("REACT_APP_MINTING_PRICE", process.env.REACT_APP_MINTING_PRICE)
+        console.log("REACT_APP_MINTING_PRICE", +process.env.REACT_APP_MINTING_PRICE)
         console.log("sum", sum)
         console.log("sum", BigNumber.from(sum.toString()))
 
@@ -175,6 +177,8 @@ const useHandleWeb3 = () => {
 
         const sum = +(process.env.REACT_APP_MINTING_PRICE) * (10 ** decimals)
 
+        console.log("REACT_APP_MINTING_PRICE", process.env.REACT_APP_MINTING_PRICE)
+        console.log("REACT_APP_MINTING_PRICE", +process.env.REACT_APP_MINTING_PRICE)
         console.log("sum", sum)
         console.log("sum", BigNumber.from(sum.toString()))
 
