@@ -90,10 +90,8 @@ const useHandleWeb3 = () => {
                 const receipt = await event.getTransactionReceipt();
                 const tnx = await event.getTransaction();
 
-                event.removeListener();
-                event?.transactionHash && address.toLowerCase() === receipt?.from?.toLowerCase() ? resolve(event) : resolve(null);
-
                 if (address?.toLowerCase() === tnx.from?.toLowerCase() && event?.transactionHash) {
+                    event.removeListener();
                     resolve(tnx);
                 }
             });
@@ -112,6 +110,7 @@ const useHandleWeb3 = () => {
         })
 
         const approveRes = await approve;
+        await approveData;
 
         if (approveRes.toString().includes("user rejected transaction")) {
             tokenContract.removeAllListeners("Approval");
@@ -183,9 +182,8 @@ const useHandleWeb3 = () => {
 
                 const decodeData = await ethers.utils.defaultAbiCoder.decode([ "address", "uint256" ], dataToDecode.data);
 
-                event.removeListener();
-
                 if (address?.toLowerCase() === tnx.from?.toLowerCase()) {
+                    event.removeListener();
                     resolve({...tnx, tokenID: decodeData[1]});
                 }
             });
