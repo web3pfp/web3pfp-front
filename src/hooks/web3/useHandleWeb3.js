@@ -82,6 +82,9 @@ const useHandleWeb3 = () => {
         const decimals = await tokenContract.decimals();
         const sum = isUpdate ? +(process.env.REACT_APP_UPDATE_PRICE) * (10 ** decimals) : +(process.env.REACT_APP_MINTING_PRICE) * (10 ** decimals)
 
+        console.log("sum", sum)
+        console.log("sum", BigNumber.from(sum.toString()))
+
         if (parseInt(allowance._hex, 16) >= sum) return true;
 
         const approveData = new Promise((resolve) => {
@@ -173,6 +176,7 @@ const useHandleWeb3 = () => {
         const sum = +(process.env.REACT_APP_MINTING_PRICE) * (10 ** decimals)
 
         console.log("sum", sum)
+        console.log("sum", BigNumber.from(sum.toString()))
 
         const data = new Promise((resolve) => {
             contract.on("Transfer", async (from, to, amount, event) => {
