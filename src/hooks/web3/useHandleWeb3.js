@@ -190,7 +190,7 @@ const useHandleWeb3 = () => {
         })
 
         const mint = new Promise(async (resolve) => {
-            const res = contract.mintNFT(address, `https://ipfs.pragmaticdlt.com/ipns/${item?.ipnsLink}`, BigNumber.from(sum.toString()), tokenContractData?.address?.toLowerCase(), {
+            const res = contract.mintNFT(address, `${item?.ipnsLink}`, BigNumber.from(sum.toString()), tokenContractData?.address?.toLowerCase(), {
                 gasLimit: 2100000,
             })
                 .then(res => {
@@ -233,7 +233,7 @@ const useHandleWeb3 = () => {
         const contract = new ethers.Contract(contractData?.address?.toLowerCase(), contractData?.abi, signer);
 
         const data = new Promise((resolve) => {
-            contract.once("NFTUpdated", async (from) => {
+            contract.on("NFTUpdated", async (from) => {
 
                 if (address?.toLowerCase() === from?.toLowerCase()) {
                     resolve(true);

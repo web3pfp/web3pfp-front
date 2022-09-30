@@ -65,18 +65,14 @@ const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoa
         const approveData = await handleWeb3.approve(selectedToken, true);
         if (!approveData) return null;
 
+        await new ItemApi()
+            .update(formData)
 
         const data = await handleWeb3.updateNFT(selectedToken);
         if (!data) exit();
 
-        const tnxRes = await data;
-        if (!tnxRes) exit();
-
-        new ItemApi()
-            .update(formData)
-            .finally(() => {
-                exit()
-            })
+        await data;
+        exit();
     }
 
     const deleteNFT = async (item) => {
