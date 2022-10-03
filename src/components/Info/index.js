@@ -23,18 +23,11 @@ const Info = () => {
                 <p>
                     Rootstock: <br/>
                     Ethereum : <br/>
-                    Polygon : <br/>
+                    Polygon : 0x0A65BDd45ba40F49210004b569C3eFA0C3ddaF62<br/>
                     Binance Smart Chain : <br/>
                     Avalanche C-chain:
                 </p>
-                <p>Donation addresses are:</p>
-                <p>
-                    RSK: <br/>
-                    ETH: <br/>
-                    MATIC: <br/>
-                    BSC: <br/>
-                    AVAX:
-                </p>
+                <p>Donation address (multichain): 0x19a1ebd311d6cabab6d04f51d420e60982ef9525</p>
             </div>
         </div>
     );
