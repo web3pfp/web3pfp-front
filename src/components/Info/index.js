@@ -18,7 +18,6 @@ const Info = () => {
                 <p>Web3PFP allows for more sophisticated tools to be used in community security and intends to pursue development of further security options for community managers and individual users. </p>
                 <p>Bedtime Labs believes cross-platform verification and curation (following, filtering, or blocking individual user’s token IDs on a personal basis across a variety of different platforms) will help provide a safer Web3 experience and assist in blockchain adoption.</p>
                 <p>Web3PFP uses the IPNS protocol within the IPFS peer-to-peer (p2p) network: https://docs.ipfs.io/concepts/ipns/</p>
-                <p>Please feel free to review our code at: <a href="#">github.io/////</a></p>
                 <p>Token contract addresses are:</p>
                 <p>
                     Rootstock: <br/>
