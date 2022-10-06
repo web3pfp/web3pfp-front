@@ -120,39 +120,6 @@ const useHandleWeb3 = () => {
         }
     }
 
-    // const mintNFTMetamask = async (item) => {
-    //     console.log("mintNFTMetamask")
-    //
-    //     const contractData = await getContract();
-    //     const tokenContractData = await getTokenContract();
-    //     if (!contractData) return null;
-    //
-    //     const provider = new ethers.providers.Web3Provider(window?.[user?.["providerName"]], "any");
-    //
-    //     const signer = await provider.getSigner()
-    //     const address = await signer.getAddress();
-    //
-    //     const tokenContract = new ethers.Contract(tokenContractData?.address, tokenAbi, signer)
-    //     console.log("tokenContract", tokenContract)
-    //
-    //     const approveRes = await tokenContract.approve(contractData?.address?.toLowerCase(), 300)
-    //     console.log("approveRes", approveRes)
-    //
-    //     await approveRes.wait();
-    //
-    //     const contract = new ethers.Contract(contractData?.address?.toLowerCase(), contractData?.abi, signer);
-    //     console.log("contract", contract)
-    //
-    //     try {
-    //         return await contract.mintNFT(address, `https://ipfs.pragmaticdlt.com/ipns/${item?.ipnsLink}`, 300, tokenContractData?.address?.toLowerCase(), {
-    //             gasLimit: 210000,
-    //         })
-    //     } catch (e) {
-    //         console.log("e", e)
-    //         return null
-    //     }
-    // }
-
     const mintNFT = async (item, selectedToken) => {
 
         const contractData = await getContract();
