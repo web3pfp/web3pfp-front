@@ -23,6 +23,7 @@ import daiIcon from "../../assets/img/tokens/dai.png";
 import polygonIcon from "../../assets/img/tokens/polygon.png";
 import binanceIcon from "../../assets/img/tokens/binance.png";
 import avaxIcon from "../../assets/img/tokens/avax.png";
+import mainWatermark from "../../assets/img/main_watermark.svg"
 
 import slideOne from "../../assets/img/main_slide_1.png"
 import slideTwo from "../../assets/img/main_slide_2.png"
@@ -85,6 +86,7 @@ const Main = () => {
                     <span>Web3PFP</span>
                     alpha
                 </div>
+                <img src={mainWatermark} className={styles.orange_badge_main_watermark} alt=""/>
             </div>
             <div className={styles.controls}>
                 <div className={styles.icons_row}>
@@ -116,8 +118,13 @@ const Main = () => {
             </div>
 
             <div className={styles.main_chains}>
-                <div className={`${styles.orange_badge} ${styles.right}`}>3 USD stablecloins to upload and mint new Web3PFP
-                    <br/>0.3 USD stablecoins to update Web3PFP image</div>
+                <div className={`${styles.orange_badge} ${styles.right}`}>
+                    <img src={mainWatermark} className={styles.main_chains_watermark} alt=""/>
+                    <span className={styles.pc}>3 USD stablecloins to upload and mint new Web3PFP
+                    <br/>0.3 USD stablecoins to update Web3PFP image</span>
+                    <span className={styles.mob}>3 USD stablecoins for new Web3PFP
+                    <br/>0.3 USD stablecoins to update</span>
+                </div>
                 <div className={styles.chains_desc}>-supported chains and tokens-</div>
                 <div className={styles.chains_content}>
                     <div className={styles.chains_list}>
