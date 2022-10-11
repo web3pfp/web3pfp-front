@@ -16,6 +16,7 @@ const useCommon = () => {
             case 1:
             case 3:
             case 4:
+            case 5:
                 return ethLogo;
 
             case 30:

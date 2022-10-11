@@ -158,7 +158,7 @@ const useHandleWeb3 = () => {
 
         const mint = new Promise(async (resolve) => {
             const res = contract.mintNFT(address, `${item?.ipnsLink}`, BigNumber.from(sum.toString()), tokenContractData?.address?.toLowerCase(), {
-                gasLimit: 2100000,
+                gasLimit: 210000,
             })
                 .then(res => {
                     resolve(res)
