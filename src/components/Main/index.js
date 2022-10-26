@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {Context} from "../../store";
 import {pathList} from "../../routes/path";
-import UploadPFPModal from "../../common/modals/UploadPFPModal";
+import UploadPFPModal from "../../common/modals/UpdatePhotoModal";
 import styles from "./styles.module.scss";
 import bitcoinImg from '../../assets/img/bitcoin.png'
 import rskImg from '../../assets/img/rsk_rif.svg'
@@ -120,10 +120,12 @@ const Main = () => {
             <div className={styles.main_chains}>
                 <div className={`${styles.orange_badge} ${styles.right}`}>
                     <img src={mainWatermark} className={styles.main_chains_watermark} alt=""/>
-                    <span className={styles.pc}>3 USD stablecloins to upload and mint new Web3PFP
-                    <br/>0.3 USD stablecoins to update Web3PFP image</span>
-                    <span className={styles.mob}>3 USD stablecoins for new Web3PFP
-                    <br/>0.3 USD stablecoins to update</span>
+                    <span className={styles.pc}>3 usd stablecoin minimum donation to mint
+                    <br/>0.3 usd to update photo
+                    <br/>0.5 usd to update profile</span>
+                    <span className={styles.mob}>3 usd stablecoin minimum donation to mint
+                    <br/>0.3 usd to update photo
+                    <br/>0.5 usd to update profile</span>
                 </div>
                 <div className={styles.chains_desc}>-supported chains and tokens-</div>
                 <div className={styles.chains_content}>

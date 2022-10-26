@@ -19,6 +19,11 @@ a{
     text-decoration: none;
 }
 
+input, textarea{
+    font-family: inherit;
+    font-size: inherit;
+}
+
 .top_buttons{
     width: 100%;
     position: absolute;

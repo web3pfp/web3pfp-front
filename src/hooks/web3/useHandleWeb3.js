@@ -74,20 +74,45 @@ const useHandleWeb3 = () => {
         });
         if (!contractData) return null;
 
+
         const {signer, address} = await getProviderData();
 
+        const contract = new ethers.Contract(contractData?.address?.toLowerCase(), contractData?.abi, signer);
         const tokenContract = new ethers.Contract(tokenContractData?.address, tokenContractData?.abi, signer);
 
         const allowance = await tokenContract.allowance(address, contractData?.address);
         const decimals = await tokenContract.decimals();
-        const sum = isUpdate ? +process.env.REACT_APP_UPDATE_PRICE * (10 ** decimals) : +process.env.REACT_APP_MINTING_PRICE * (10 ** decimals)
+
+        const price_decimals_hex = await contract.PRICE_DECIMALS()
+        const price_decimals = parseInt(price_decimals_hex, 16)
+
+        const getPrice = async () => {
+            switch (isUpdate) {
+                case "info": {
+                    const info_price_hex = await contract.UPDATE_INFO_AMOUNT()
+                    const info_price = parseInt(info_price_hex, 10)
+                    return (info_price / (10 ** price_decimals)) * (10 ** decimals)
+                }
+                case "photo": {
+                    const photo_price_hex = await contract.UPDATE_PHOTO_AMOUNT()
+                    const photo_price = parseInt(photo_price_hex, 10)
+                    return (photo_price / (10 ** price_decimals)) * (10 ** decimals)
+                }
+                default: {
+                    const mint_price_hex = await contract.MINT_AMOUNT()
+                    const mint_price = parseInt(mint_price_hex, 10)
+                    return (mint_price / (10 ** price_decimals)) * (10 ** decimals)
+                }
+            }
+        }
+
+        const sum = await getPrice()
 
         if (parseInt(allowance._hex, 16) >= sum) return true;
 
         const approveData = new Promise((resolve) => {
 
             tokenContract.on("Approval", async (from, to, amount, event) => {
-                const receipt = await event.getTransactionReceipt();
                 const tnx = await event.getTransaction();
 
                 if (address?.toLowerCase() === tnx.from?.toLowerCase() && event?.transactionHash) {
@@ -110,7 +135,6 @@ const useHandleWeb3 = () => {
         })
 
         const approveRes = await approve;
-        await approveData;
 
         if (approveRes.toString().includes("user rejected transaction")) {
             tokenContract.removeAllListeners("Approval");
@@ -136,7 +160,12 @@ const useHandleWeb3 = () => {
         const tokenContract = new ethers.Contract(tokenContractData?.address, tokenContractData?.abi, signer);
         const decimals = await tokenContract.decimals();
 
-        const sum = +process.env.REACT_APP_MINTING_PRICE * (10 ** decimals)
+        const price_decimals_hex = await contract.PRICE_DECIMALS()
+        const price_decimals = parseInt(price_decimals_hex, 10)
+
+        const mint_price_hex = await contract.MINT_AMOUNT()
+        const mint_price = parseInt(mint_price_hex, 10)
+        const sum = (mint_price / (10 ** price_decimals)) * (10 ** decimals)
 
         const data = new Promise((resolve) => {
             contract.on("Transfer", async (from, to, amount, event) => {
@@ -181,7 +210,7 @@ const useHandleWeb3 = () => {
 
     }
 
-    const updateNFT = async (selectedToken) => {
+    const updateNFTInfo = async (selectedToken) => {
 
         const contractData = await getContract();
         const tokenContractData = await getTokenContract({
@@ -192,12 +221,17 @@ const useHandleWeb3 = () => {
 
         const {signer, address} = await getProviderData()
 
+
+        const contract = new ethers.Contract(contractData?.address?.toLowerCase(), contractData?.abi, signer);
         const tokenContract = new ethers.Contract(tokenContractData?.address, tokenContractData?.abi, signer);
         const decimals = await tokenContract.decimals();
 
-        const sum = 0.3 * (10 ** decimals)
+        const price_decimals_hex = await contract.PRICE_DECIMALS()
+        const price_decimals = parseInt(price_decimals_hex, 10)
 
-        const contract = new ethers.Contract(contractData?.address?.toLowerCase(), contractData?.abi, signer);
+        const mint_price_hex = await contract.UPDATE_INFO_AMOUNT()
+        const mint_price = parseInt(mint_price_hex, 10)
+        const sum = (mint_price / (10 ** price_decimals)) * (10 ** decimals)
 
         const data = new Promise((resolve) => {
             contract.on("NFTUpdated", async (from) => {
@@ -211,7 +245,7 @@ const useHandleWeb3 = () => {
         })
 
         const update = new Promise(async (resolve) => {
-            const res = contract.updateNFT(tokenContractData?.address?.toLowerCase(), BigNumber.from(sum.toString()), {
+            const res = contract.updateInfo(tokenContractData?.address?.toLowerCase(), BigNumber.from(sum.toString()), {
                 gasLimit: 210000,
             })
                 .then(res => resolve(res))
@@ -232,11 +266,66 @@ const useHandleWeb3 = () => {
 
     }
 
+    const updateNFTPhoto = async (selectedToken) => {
+
+        const contractData = await getContract();
+        const tokenContractData = await getTokenContract({
+            provider: user?.provider,
+            token: selectedToken,
+        });
+        if (!contractData) return null;
+
+        const {signer, address} = await getProviderData()
+
+        const tokenContract = new ethers.Contract(tokenContractData?.address, tokenContractData?.abi, signer);
+        const contract = new ethers.Contract(contractData?.address?.toLowerCase(), contractData?.abi, signer);
+        const decimals = await tokenContract.decimals();
+
+        const price_decimals_hex = await contract.PRICE_DECIMALS()
+        const price_decimals = parseInt(price_decimals_hex, 10)
+
+        const mint_price_hex = await contract.UPDATE_PHOTO_AMOUNT()
+        const mint_price = parseInt(mint_price_hex, 10)
+        const sum = (mint_price / (10 ** price_decimals)) * (10 ** decimals)
+
+
+        const data = new Promise((resolve) => {
+            contract.on("NFTUpdated", async (from) => {
+
+                if (address?.toLowerCase() === from?.toLowerCase()) {
+                    resolve(true);
+                } else {
+                    resolve(null);
+                }
+            });
+        })
+
+        const update = new Promise(async (resolve) => {
+            const res = contract.updatePhoto(tokenContractData?.address?.toLowerCase(), BigNumber.from(sum.toString()), {
+                gasLimit: 210000,
+            })
+                .then(res => resolve(res))
+                .catch(err => resolve(err))
+
+            return res;
+        })
+
+        const updateRes = await update;
+
+        if (updateRes.toString().includes("user rejected transaction")) {
+            contract.removeAllListeners("NFTUpdated")
+            return null
+        } else {
+            return await data
+        }
+    }
+
     return {
         getNetwork,
         loadWeb3,
         mintNFT,
-        updateNFT,
+        updateNFTInfo,
+        updateNFTPhoto,
         approve,
         getProviderData,
         getContract,

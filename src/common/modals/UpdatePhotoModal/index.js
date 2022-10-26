@@ -1,13 +1,12 @@
 import React from 'react';
 import ModalCustom from "../../ModalCustom";
-import UploadPFP from "./UploadPFP";
+import UpdatePhoto from "./UpdatePhoto";
 
-const UploadPFPModal = ({isOpen, onRequestClose, isReplace, callback, item}) => {
+const UpdatePhotoModal = ({isOpen, onRequestClose, callback, item}) => {
     return (
         <ModalCustom isOpen={isOpen} onRequestClose={onRequestClose}>
-            <UploadPFP
+            <UpdatePhoto
                 onRequestClose={onRequestClose}
-                isReplace={isReplace}
                 callback={callback}
                 item={item}
             />
@@ -15,4 +14,4 @@ const UploadPFPModal = ({isOpen, onRequestClose, isReplace, callback, item}) => 
     );
 };
 
-export default UploadPFPModal;
+export default UpdatePhotoModal;

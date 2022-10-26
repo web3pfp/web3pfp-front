@@ -1,0 +1,23 @@
+@import "../../../../assets/scss/mixins";
+
+.update_info_modal{
+  @include modal_basic(1153px);
+
+  &_update_btn{
+    @include button;
+
+    height: 48px;
+    width: 400px;
+    margin: 0 auto;
+    max-width: 100%;
+
+    @media screen and (max-width: 1200px){
+
+    }
+
+    &.disabled{
+      opacity: .5;
+      pointer-events: none;
+    }
+  }
+}

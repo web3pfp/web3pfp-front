@@ -21,9 +21,24 @@ export default class ItemApi extends Base {
         return super.post("item/delete", data);
     }
 
-    async update(data) {
+    async updateInfo(data) {
         if (!super.getToken()) return null;
-        return super.post("item/update", data);
+        return super.post("item/updateInfo", data);
+    }
+
+    async updateInfoConfirm(data) {
+        if (!super.getToken()) return null;
+        return super.post("item/updateInfoConfirm", data);
+    }
+
+    async updatePhoto(data) {
+        if (!super.getToken()) return null;
+        return super.post("item/updatePhoto", data);
+    }
+
+    async updatePhotoConfirm(data) {
+        if (!super.getToken()) return null;
+        return super.post("item/updatePhotoConfirm", data);
     }
 
     async getContract() {
