@@ -2,7 +2,6 @@ import React, {useContext, useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {Context} from "../../store";
 import {pathList} from "../../routes/path";
-import UploadPFPModal from "../../common/modals/UpdatePhotoModal";
 import styles from "./styles.module.scss";
 import bitcoinImg from '../../assets/img/bitcoin.png'
 import rskImg from '../../assets/img/rsk_rif.svg'
@@ -28,6 +27,7 @@ import mainWatermark from "../../assets/img/main_watermark.svg"
 import slideOne from "../../assets/img/main_slide_1.png"
 import slideTwo from "../../assets/img/main_slide_2.png"
 import slideThree from "../../assets/img/main_slide_3.png"
+import CreatePFPModal from "../../common/modals/CreatePFPModal";
 
 const Main = () => {
     const [{user}, ACTION] = useContext(Context);
@@ -35,13 +35,11 @@ const Main = () => {
     let navigate = useNavigate();
 
     const [isUploadModalOpen, setIsUploadModalOpen] = useState(false)
-    const [isReplaceModal, setIsReplaceModal] = useState(false)
     const [activeSlide, setActiveSlide] = useState(0)
     const [isWallets] = useState(!!window?.ethereum || !!window?.eth)
 
-    const openUploadModal = (type) => {
+    const openUploadModal = () => {
         if (user?.publicAddress) {
-            setIsReplaceModal(type)
             setIsUploadModalOpen(true)
         } else {
             ACTION.SET_LOGIN_MODAL(true)
@@ -71,6 +69,10 @@ const Main = () => {
         slideTwo,
         slideThree
     ]
+
+    const afterMinting = () => {
+        navigate(pathList.gallery.path)
+    }
 
     return (
         <div>
@@ -207,10 +209,10 @@ const Main = () => {
                     <img src={girlImg} alt=""/>
                 </div>
             </div>
-            <UploadPFPModal
+            <CreatePFPModal
                 isOpen={isUploadModalOpen}
                 onRequestClose={closeUploadModal}
-                isReplace={isReplaceModal}
+                callback={afterMinting}
             />
         </div>
     );
