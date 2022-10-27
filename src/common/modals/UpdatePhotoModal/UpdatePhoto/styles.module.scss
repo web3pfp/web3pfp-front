@@ -223,6 +223,13 @@ $watermark_switcher_margin: 37px;
     }
   }
 
+  &_profile_name{
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
   &_choose_token{
     display: flex;
     align-items: center;

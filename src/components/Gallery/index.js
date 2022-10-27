@@ -81,7 +81,7 @@ const Gallery = () => {
                                     <div className={styles.gallery_grid_item_img}>
                                         <img src={item?.link} alt=""/>
                                     </div>
-                                    <div className={styles.gallery_grid_item_desc}>{item?.description ? item?.description : <br/>}</div>
+                                    <div className={styles.gallery_grid_item_desc}>{item?.profileName ? item?.profileName : <br/>}</div>
                                     <div className={styles.gallery_grid_item_buttons_row}>
                                         <div className={styles.gallery_grid_item_chain_icon}>
                                             <img src={getProvidersLogo(item?.provider)} alt=""/>

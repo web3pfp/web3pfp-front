@@ -34,7 +34,7 @@ const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoa
 
                     if (attempt < 2) {
                         attempt++;
-                        await createRecursion()
+                        return await createRecursion()
                     } else {
                         return null
                     }

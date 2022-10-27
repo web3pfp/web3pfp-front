@@ -134,7 +134,7 @@ const useHandleNftForm = ({item, onRequestClose, callback}) => {
         const newFormData = new FormData()
 
         newFormData.append("image", formData.image)
-        newFormData.append("isWatermark", formData.switcher)
+        newFormData.append("switcher", formData.switcher)
         newFormData.append("itemID", item?._id)
 
         await handleNft.updateNFTPhoto(newFormData, selectedToken)

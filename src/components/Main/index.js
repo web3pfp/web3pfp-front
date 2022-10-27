@@ -107,9 +107,6 @@ const Main = () => {
                         >
                             <span>Mint Your PFP</span>
                         </div>
-                        <div className={styles.controls_buttons_item_text}>3 usd stablecoin minimum donation to mint 0.3
-                            usd stablecoin access fee to update
-                        </div>
                     </div>
                     <div className={styles.controls_buttons_item_wrap}>
                         <div onClick={onOpenGallery} className={styles.controls_buttons_item}>

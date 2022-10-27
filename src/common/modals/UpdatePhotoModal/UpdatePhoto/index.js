@@ -27,6 +27,9 @@ const UpdatePhoto = ({onRequestClose, callback, item}) => {
                     item={item}
                     uploadedImage={handleNFTForm.formData.image}
                 />
+                {
+                    item?.profileName && <div className={styles.upload_modal_profile_name}>{item?.profileName}</div>
+                }
                 <FormTokens
                     selectedToken={handleNFTForm.selectedToken}
                     setSelectedToken={handleNFTForm.setSelectedToken}
