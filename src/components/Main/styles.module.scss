@@ -27,7 +27,7 @@
   }
 
   &_text{
-    //margin-right: auto;
+    margin-right: auto;
     color: #fff;
     font-size: 48px;
     font-weight: 600;
@@ -136,9 +136,9 @@
 
   &_watermark{
     margin-left: 5px;
-    margin-right: auto;
+    //margin-right: auto;
     display: block;
-    align-self: flex-start;
+    align-self: center;
 
     @media screen and (max-width: 1400px){
       width: 90px;
