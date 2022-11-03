@@ -44,7 +44,7 @@ const Gallery = () => {
                 if (res?.status) {
                     const filtered = await handleNft.checkNFTsOwner(res?.data)
                         .then(res => res)
-                        .catch(() => setGalleryData(res?.data))
+                        .catch(() => res?.data)
                     setGalleryData(filtered)
                 }
             })
