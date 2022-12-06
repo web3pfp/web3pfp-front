@@ -57,18 +57,16 @@ const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoa
             return await deleteNFT(createdItem);
         }
 
-        const tnxRes = await data?.wait()?.catch(() => data);
-
-        if (!tnxRes?.transactionHash) {
+        if (!data?.transactionHash) {
             console.error("NFT hasn't been created - empty transaction hash");
             return await deleteNFT(createdItem);
         }
 
-        const tokenID = parsedToken ? parseInt(parsedToken?._hex, 16) : parseInt(tnxRes?.events[tnxRes?.events?.length - 1]?.args?.tokenId?._hex, 16);
+        const tokenID = parsedToken ? parseInt(parsedToken?._hex, 16) : parseInt(data?.events[data?.events?.length - 1]?.args?.data?._hex, 16);
         console.log("tokenID", tokenID)
 
         new ItemApi()
-            .confirm({item: createdItem, tnx: tnxRes, tokenID: tokenID})
+            .confirm({item: createdItem, tnx: data, tokenID: tokenID})
             .finally(() => {
                 handleLoader(false);
                 exit();
