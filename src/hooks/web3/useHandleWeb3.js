@@ -16,8 +16,8 @@ const useHandleWeb3 = () => {
             window.ethereum.on("chainChanged", () => accountsChangedCallback());
 
             if (user){
+                if (!window?.[user?.["providerName"]]) accountsChangedCallback()
                 const provider = new ethers.providers.Web3Provider(window?.[user?.["providerName"]], "any");
-
                 const acc = await provider.send("eth_requestAccounts", []);
                 const network = await provider.getNetwork();
 

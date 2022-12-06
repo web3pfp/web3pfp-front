@@ -157,6 +157,18 @@ const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoa
             })
     }
 
+    const getAll = () => {
+        return new ItemApi().getAll()
+            .then(async (res) => {
+                if (res?.status) {
+                    const filtered = await checkNFTsOwner(res?.data)
+                        .then(res => res)
+                        .catch(() => res?.data)
+                    return filtered
+                }
+            })
+    }
+
     const checkNFTsOwner = async (tokens) => {
         const contractData = await handleWeb3.getContract();
         const {signer} = await handleWeb3.getProviderData();
@@ -185,7 +197,7 @@ const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoa
         new ItemApi().changeOwner({item, newOwner})
     }
 
-    return {mintNFT, updateNFTInfo, updateNFTPhoto, checkNFTsOwner};
+    return {mintNFT, updateNFTInfo, updateNFTPhoto, checkNFTsOwner, getAll};
 };
 
 export default useHandleNft;

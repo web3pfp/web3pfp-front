@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom"
 import {Context} from "../../store";
-import ItemApi from "../../utils/api/ItemApi";
 import UpdatePhotoModal from "../../common/modals/UpdatePhotoModal";
 import useCommon from "../../hooks/useCommon";
 import styles from "./styles.module.scss"
@@ -38,20 +37,12 @@ const Gallery = () => {
     const closeCreateModal = () => setIsCreateModalOpen(false)
     const closeUpdateInfoModal = () => setIsUpdateInfoModalOpen(false)
 
-    const getAll = () => {
-        new ItemApi().getAll()
-            .then(async (res) => {
-                if (res?.status) {
-                    const filtered = await handleNft.checkNFTsOwner(res?.data)
-                        .then(res => res)
-                        .catch(() => res?.data)
-                    setGalleryData(filtered)
-                }
-            })
-    }
-
     useEffect(() => {
-        if (user) getAll()
+        const init = async () => {
+            if (user) setGalleryData(await handleNft.getAll())
+        }
+
+        init()
     }, [user])
 
     useEffect(() => {
@@ -59,8 +50,8 @@ const Gallery = () => {
         if (!token) navigate("/")
     }, [user])
 
-    const onImageUploaded = () => {
-        getAll()
+    const onImageUploaded = async () => {
+        setGalleryData(await handleNft.getAll())
     }
 
     return (
