@@ -78,9 +78,9 @@ const useHandleWeb3 = () => {
         const {signer, address} = await getProviderData();
 
         const contract = new ethers.Contract(contractData?.address?.toLowerCase(), contractData?.abi, signer);
-        const tokenContract = new ethers.Contract(tokenContractData?.address, tokenContractData?.abi, signer);
+        const tokenContract = new ethers.Contract(tokenContractData?.address?.toLowerCase(), tokenContractData?.abi, signer);
 
-        const allowance = await tokenContract.allowance(address, contractData?.address);
+        const allowance = await tokenContract.allowance(address, contractData?.address?.toLowerCase());
         const decimals = await tokenContract.decimals();
 
         const price_decimals_hex = await contract.PRICE_DECIMALS()
@@ -133,7 +133,7 @@ const useHandleWeb3 = () => {
 
         const contract = new ethers.Contract(contractData?.address?.toLowerCase(), contractData?.abi, signer);
 
-        const tokenContract = new ethers.Contract(tokenContractData?.address, tokenContractData?.abi, signer);
+        const tokenContract = new ethers.Contract(tokenContractData?.address?.toLowerCase(), tokenContractData?.abi, signer);
         const decimals = await tokenContract.decimals();
 
         const price_decimals_hex = await contract.PRICE_DECIMALS()
@@ -177,7 +177,7 @@ const useHandleWeb3 = () => {
 
 
         const contract = new ethers.Contract(contractData?.address?.toLowerCase(), contractData?.abi, signer);
-        const tokenContract = new ethers.Contract(tokenContractData?.address, tokenContractData?.abi, signer);
+        const tokenContract = new ethers.Contract(tokenContractData?.address?.toLowerCase(), tokenContractData?.abi, signer);
         const decimals = await tokenContract.decimals();
 
         const price_decimals_hex = await contract.PRICE_DECIMALS()
@@ -212,7 +212,7 @@ const useHandleWeb3 = () => {
 
         const {signer} = await getProviderData()
 
-        const tokenContract = new ethers.Contract(tokenContractData?.address, tokenContractData?.abi, signer);
+        const tokenContract = new ethers.Contract(tokenContractData?.address?.toLowerCase(), tokenContractData?.abi, signer);
         const contract = new ethers.Contract(contractData?.address?.toLowerCase(), contractData?.abi, signer);
         const decimals = await tokenContract.decimals();
 
