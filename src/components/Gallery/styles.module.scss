@@ -37,12 +37,18 @@
   }
 }
 
+.gallery_btns_row{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
 .gallery_mint_btn{
   @include button();
 
   width: 227px;
   padding: 0;
-  margin-left: auto;
+  margin-left: 20px;
   margin-bottom: 36px;
 
   @media screen and (max-width: 1200px){

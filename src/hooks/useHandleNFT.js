@@ -169,6 +169,31 @@ const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoa
             })
     }
 
+    const loadNFT = async (tokenID) => {
+        if (isNaN(tokenID)) handleUploadError();
+
+        const contractData = await handleWeb3.getContract();
+        const {signer, address} = await handleWeb3.getProviderData();
+
+        const contract = new ethers.Contract(contractData?.address?.toLowerCase(), contractData?.abi, signer);
+
+        try {
+            const ownerOf = await contract.ownerOf(tokenID);
+
+            if (ownerOf === address) {
+                new ItemApi()
+                    .loadItem({tokenID, newOwner: ownerOf})
+                    .then(res => {
+                        res?.status ? callback() : onRequestClose()
+                    })
+            } else {
+                handleUploadError()
+            }
+        } catch (e) {
+            handleUploadError()
+        }
+    }
+
     const checkNFTsOwner = async (tokens) => {
         const contractData = await handleWeb3.getContract();
         const {signer} = await handleWeb3.getProviderData();
@@ -197,7 +222,7 @@ const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoa
         new ItemApi().changeOwner({item, newOwner})
     }
 
-    return {mintNFT, updateNFTInfo, updateNFTPhoto, checkNFTsOwner, getAll};
+    return {mintNFT, updateNFTInfo, updateNFTPhoto, checkNFTsOwner, getAll, loadNFT};
 };
 
 export default useHandleNft;

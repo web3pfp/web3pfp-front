@@ -9,6 +9,7 @@ import {localStorageGet} from "../../utils/localStorage";
 import useHandleNft from "../../hooks/useHandleNFT";
 import CreatePFPModal from "../../common/modals/CreatePFPModal";
 import UpdateInfoModal from "../../common/modals/UpdateInfoModal";
+import LoadNFTModal from "../../common/modals/LoadNFTModal";
 
 const Gallery = () => {
     const [{user}] = useContext(Context);
@@ -16,6 +17,7 @@ const Gallery = () => {
     const handleNft = useHandleNft({})
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+    const [isLoadNFTModalOpen, setIsLoadNFTModalOpen] = useState(false)
     const [isUpdatePhotoModalOpen, setIsUpdatePhotoModalOpen] = useState(false)
     const [isUpdateInfoModalOpen, setIsUpdateInfoModalOpen] = useState(false)
     const [galleryData, setGalleryData] = useState(null)
@@ -24,6 +26,7 @@ const Gallery = () => {
     const {getProvidersLogo} = useCommon()
 
     const openCreateModal = () => setIsCreateModalOpen(true)
+    const openLoadNFTModal = () => setIsLoadNFTModalOpen(true)
     const openUpdatePhotoModal = (item = null) => {
         setSelectedItem(item)
         setIsUpdatePhotoModalOpen(true)
@@ -36,6 +39,7 @@ const Gallery = () => {
     const closeUpdatePhotoModal = () => setIsUpdatePhotoModalOpen(false)
     const closeCreateModal = () => setIsCreateModalOpen(false)
     const closeUpdateInfoModal = () => setIsUpdateInfoModalOpen(false)
+    const closeLoadNFTModal = () => setIsLoadNFTModalOpen(false)
 
     useEffect(() => {
         const init = async () => {
@@ -54,13 +58,23 @@ const Gallery = () => {
         setGalleryData(await handleNft.getAll())
     }
 
+    const onTokenLoaded = async () => {
+        setGalleryData(await handleNft.getAll())
+        closeLoadNFTModal()
+    }
+
     return (
         <div>
             <div className={styles.orange_badge}>Your Gallery</div>
             <div className={styles.gallery_content_wrap}>
-                <div className={styles.gallery_mint_btn}
-                     onClick={openCreateModal}
-                ><span>Mint New PFP</span></div>
+                <div className={styles.gallery_btns_row}>
+                    <div className={styles.gallery_mint_btn}
+                         onClick={openLoadNFTModal}
+                    ><span>Load NFT</span></div>
+                    <div className={styles.gallery_mint_btn}
+                         onClick={openCreateModal}
+                    ><span>Mint New PFP</span></div>
+                </div>
                 <div className={styles.gallery_grid}>
                     {
                         galleryData && galleryData?.map((item, idx) => {
@@ -112,6 +126,11 @@ const Gallery = () => {
                 item={selectedItem}
                 onRequestClose={closeUpdateInfoModal}
                 callback={onImageUploaded}
+            />
+            <LoadNFTModal
+                isOpen={isLoadNFTModalOpen}
+                onRequestClose={closeLoadNFTModal}
+                callback={onTokenLoaded}
             />
         </div>
     );

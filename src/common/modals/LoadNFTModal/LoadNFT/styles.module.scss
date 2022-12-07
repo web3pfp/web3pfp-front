@@ -1,0 +1,65 @@
+@import "../../../../assets/scss/mixins";
+
+.load_nft{
+  @include modal_basic(500px);
+
+  &_form{
+    padding: 20px 20px 0;
+  }
+
+  &_title{
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  &_input{
+    display: block;
+    width: 100%;
+    height: 39px;
+    font-size: 20px;
+    border: 1px solid #0E46D6;
+    border-radius: 3px;
+    outline-color: #0E46D6;
+    padding: 0 10px;
+    margin-bottom: 20px;
+  }
+
+  &_buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &_send_btn{
+    @include button();
+
+    border: none;
+
+    &.disabled{
+      pointer-events: none;
+      opacity: .5;
+    }
+  }
+
+  &_cancel_btn{
+    width: 171px;
+    height: 58px;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: none;
+    font-weight: 700;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  &_error{
+    color: #f00;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+}
