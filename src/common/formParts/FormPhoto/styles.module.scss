@@ -18,10 +18,11 @@ $watermark_switcher_margin: 37px;
     margin-right: $watermark_switcher_margin;
 
     @media screen and (max-width: 767px){
-      display: flex;
+      //display: flex;
       flex-direction: row-reverse;
       align-items: center;
       margin-right: 0;
+      display: none;
     }
 
     &_icon{
