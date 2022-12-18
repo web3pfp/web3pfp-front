@@ -2,7 +2,6 @@ import React, {useContext, useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {Context} from "../../store";
 import {pathList} from "../../routes/path";
-import UploadPFPModal from "../../common/modals/UploadPFPModal";
 import styles from "./styles.module.scss";
 import bitcoinImg from '../../assets/img/bitcoin.png'
 import rskImg from '../../assets/img/rsk_rif.svg'
@@ -23,10 +22,12 @@ import daiIcon from "../../assets/img/tokens/dai.png";
 import polygonIcon from "../../assets/img/tokens/polygon.png";
 import binanceIcon from "../../assets/img/tokens/binance.png";
 import avaxIcon from "../../assets/img/tokens/avax.png";
+import mainWatermark from "../../assets/img/main_watermark.svg"
 
 import slideOne from "../../assets/img/main_slide_1.png"
 import slideTwo from "../../assets/img/main_slide_2.png"
 import slideThree from "../../assets/img/main_slide_3.png"
+import CreatePFPModal from "../../common/modals/CreatePFPModal";
 
 const Main = () => {
     const [{user}, ACTION] = useContext(Context);
@@ -34,13 +35,11 @@ const Main = () => {
     let navigate = useNavigate();
 
     const [isUploadModalOpen, setIsUploadModalOpen] = useState(false)
-    const [isReplaceModal, setIsReplaceModal] = useState(false)
     const [activeSlide, setActiveSlide] = useState(0)
     const [isWallets] = useState(!!window?.ethereum || !!window?.eth)
 
-    const openUploadModal = (type) => {
+    const openUploadModal = () => {
         if (user?.publicAddress) {
-            setIsReplaceModal(type)
             setIsUploadModalOpen(true)
         } else {
             ACTION.SET_LOGIN_MODAL(true)
@@ -71,6 +70,10 @@ const Main = () => {
         slideThree
     ]
 
+    const afterMinting = () => {
+        navigate(pathList.gallery.path)
+    }
+
     return (
         <div>
             <div className={styles.orange_badge_main}>
@@ -85,6 +88,7 @@ const Main = () => {
                     <span>Web3PFP</span>
                     alpha
                 </div>
+                <img src={mainWatermark} className={styles.orange_badge_main_watermark} alt=""/>
             </div>
             <div className={styles.controls}>
                 <div className={styles.icons_row}>
@@ -103,9 +107,6 @@ const Main = () => {
                         >
                             <span>Mint Your PFP</span>
                         </div>
-                        <div className={styles.controls_buttons_item_text}>3 usd stablecoin minimum donation to mint 0.3
-                            usd stablecoin access fee to update
-                        </div>
                     </div>
                     <div className={styles.controls_buttons_item_wrap}>
                         <div onClick={onOpenGallery} className={styles.controls_buttons_item}>
@@ -116,8 +117,15 @@ const Main = () => {
             </div>
 
             <div className={styles.main_chains}>
-                <div className={`${styles.orange_badge} ${styles.right}`}>3 USD stablecloins to upload and mint new Web3PFP
-                    <br/>0.3 USD stablecoins to update Web3PFP image</div>
+                <div className={`${styles.orange_badge} ${styles.right}`}>
+                    <img src={mainWatermark} className={styles.main_chains_watermark} alt=""/>
+                    <span className={styles.pc}>3 usd stablecoin minimum donation to mint
+                    <br/>0.3 usd to update photo
+                    <br/>0.5 usd to update profile</span>
+                    <span className={styles.mob}>3 usd stablecoin minimum donation to mint
+                    <br/>0.3 usd to update photo
+                    <br/>0.5 usd to update profile</span>
+                </div>
                 <div className={styles.chains_desc}>-supported chains and tokens-</div>
                 <div className={styles.chains_content}>
                     <div className={styles.chains_list}>
@@ -187,21 +195,22 @@ const Main = () => {
 
             <div className={styles.main_info_wrap}>
                 <div className={styles.main_info_text}>
-                    <p>An opt-in forward facing identity for yourself or your pseudonyms intended to encourage the establishment of an open security framework for online communities. </p>
-                    <p>Web3PFPs are ERC721 NFTs paired with IPNS keys held in a private IPFS server accessible by the NFT holder.</p>
-                    <p>These access key tokens allow users to change the final destination (image) each IPNS address in the NFT metadata points to.</p>
-                    <p>Each Web3PFP NFT displays a user-uploaded profile picture that can be changed whenever by the token holder.</p>
-                    <p>Online communities can utilize the blockchain security behind the Web3PFP to apply an initial layer of security across an increasing number of social media platforms to help keep their community members safe.</p>
+                    <p>A forward facing identity for yourself or your pseudonyms intended to encourage the establishment of an open security framework for online communities. </p>
+                    <p>Web3PFPs are ERC721 NFTs paired with IPNS “pointers” to user-uploaded Filecoin-backed IPFS content.</p>
+                    <p>These access key tokens allow users to change their NFT’s image as well as a number of metadata properties.</p>
+                    <p>Each Web3PFP NFT displays a user-uploaded profile picture alongside an optional user profile that can be changed whenever by the token holder.</p>
+                    <p>
+                        Online communities can utilize the blockchain security behind the Web3PFP to apply an initial layer of security across an increasing number of social media platforms to help keep their community members safe.</p>
                     <Link to={pathList.info.path} className={styles.main_info_text_more}><span>Learn More</span></Link>
                 </div>
                 <div className={styles.main_info_img}>
                     <img src={girlImg} alt=""/>
                 </div>
             </div>
-            <UploadPFPModal
+            <CreatePFPModal
                 isOpen={isUploadModalOpen}
                 onRequestClose={closeUploadModal}
-                isReplace={isReplaceModal}
+                callback={afterMinting}
             />
         </div>
     );

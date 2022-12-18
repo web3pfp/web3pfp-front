@@ -11,7 +11,7 @@ const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoa
     const exit = () => {
         onRequestClose()
         handleLoader(false);
-        setTimeout(callback, 500)
+        setTimeout(callback, 1000)
     }
 
     const mintNFT = async (formData, selectedToken) => {
@@ -24,10 +24,26 @@ const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoa
             return null;
         }
 
-        const createdItem = await new ItemApi()
-            .create(formData)
-            .then(res => res?.status ? res?.data : null)
-            .catch(() => null);
+        let attempt = 0;
+
+        const createRecursion = async () => {
+            return await new ItemApi()
+                .create(formData)
+                .then(async (res) => {
+                    if (res?.status) return res?.data
+
+                    if (attempt < 2) {
+                        attempt++;
+                        return await createRecursion()
+                    } else {
+                        return null
+                    }
+                })
+                .catch(() => null)
+        }
+
+        const createdItem = await createRecursion()
+
         if (!createdItem) {
             handleUploadError();
             return null;
@@ -41,37 +57,95 @@ const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoa
             return await deleteNFT(createdItem);
         }
 
-        const tnxRes = await data?.wait()?.catch(() => data);
-
-        if (!tnxRes?.transactionHash) {
+        if (!data?.transactionHash) {
             console.error("NFT hasn't been created - empty transaction hash");
             return await deleteNFT(createdItem);
         }
 
-        const tokenID = parsedToken ? parseInt(parsedToken?._hex, 16) : parseInt(tnxRes?.events[tnxRes?.events?.length - 1]?.args?.tokenId?._hex, 16);
+        const tokenID = parsedToken ? parseInt(parsedToken?._hex, 16) : parseInt(data?.events[data?.events?.length - 1]?.args?.data?._hex, 16);
         console.log("tokenID", tokenID)
 
         new ItemApi()
-            .confirm({item: createdItem, tnx: tnxRes, tokenID: tokenID})
+            .confirm({item: createdItem, tnx: data, tokenID: tokenID})
             .finally(() => {
                 handleLoader(false);
                 exit();
             })
     }
 
-    const updateNFT = async (formData, selectedToken) => {
+    const updateNFTInfo = async (formData, selectedToken) => {
         handleLoader(true);
 
-        const approveData = await handleWeb3.approve(selectedToken, true);
-        if (!approveData) return null;
+        const approveData = await handleWeb3.approve(selectedToken, "info");
+        if (!approveData) {
+            console.error("Info hasn't been updated -  not approved");
+            exit();
+            return null;
+        }
 
         await new ItemApi()
-            .update(formData)
+            .updateInfo(formData)
+            .catch(() => exit())
 
-        const data = await handleWeb3.updateNFT(selectedToken);
+        const data = await handleWeb3.updateNFTInfo(selectedToken);
         if (!data) exit();
 
-        await data;
+        let attempt = 0;
+
+        const confirmRecursion = async () => {
+            await new ItemApi()
+                .updateInfoConfirm(formData)
+                .then(async (res) => {
+                    if (!res.status) {
+                        if (attempt < 2) {
+                            attempt++;
+                            await confirmRecursion()
+                        }
+                    }
+                })
+                .catch(() => exit())
+        }
+
+        await confirmRecursion()
+
+        exit();
+    }
+
+    const updateNFTPhoto = async (formData, selectedToken) => {
+        handleLoader(true);
+
+        const approveData = await handleWeb3.approve(selectedToken, "photo");
+        if (!approveData) {
+            console.error("Photo hasn't been updated -  not approved");
+            exit();
+            return null;
+        }
+
+        await new ItemApi()
+            .updatePhoto(formData)
+            .catch(() => exit())
+
+
+        const data = await handleWeb3.updateNFTPhoto(selectedToken);
+        if (!data) exit();
+
+        let attempt = 0;
+
+        const confirmRecursion = async () => {
+            await new ItemApi()
+                .updatePhotoConfirm(formData)
+                .then(async (res) => {
+                    if (!res.status) {
+                         if (attempt < 2) {
+                             attempt++;
+                             await confirmRecursion()
+                         }
+                    }
+                })
+        }
+
+        await confirmRecursion()
+
         exit();
     }
 
@@ -81,6 +155,43 @@ const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoa
             .then(() => {
                 exit()
             })
+    }
+
+    const getAll = () => {
+        return new ItemApi().getAll()
+            .then(async (res) => {
+                if (res?.status) {
+                    const filtered = await checkNFTsOwner(res?.data)
+                        .then(res => res)
+                        .catch(() => res?.data)
+                    return filtered
+                }
+            })
+    }
+
+    const loadNFT = async (tokenID) => {
+        if (isNaN(tokenID)) handleUploadError();
+
+        const contractData = await handleWeb3.getContract();
+        const {signer, address} = await handleWeb3.getProviderData();
+
+        const contract = new ethers.Contract(contractData?.address?.toLowerCase(), contractData?.abi, signer);
+
+        try {
+            const ownerOf = await contract.ownerOf(tokenID);
+
+            if (ownerOf === address) {
+                new ItemApi()
+                    .loadItem({tokenID, newOwner: ownerOf})
+                    .then(res => {
+                        res?.status ? callback() : onRequestClose()
+                    })
+            } else {
+                handleUploadError()
+            }
+        } catch (e) {
+            handleUploadError()
+        }
     }
 
     const checkNFTsOwner = async (tokens) => {
@@ -111,7 +222,7 @@ const useHandleNft = ({onRequestClose = () => {}, callback = () => {}, handleLoa
         new ItemApi().changeOwner({item, newOwner})
     }
 
-    return {mintNFT, updateNFT, checkNFTsOwner};
+    return {mintNFT, updateNFTInfo, updateNFTPhoto, checkNFTsOwner, getAll, loadNFT};
 };
 
 export default useHandleNft;
