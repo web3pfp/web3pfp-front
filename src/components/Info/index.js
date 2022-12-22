@@ -31,11 +31,11 @@ const Info = () => {
                 <p>The IPFS CID returned by the w3.name api can be reached through any public IPFS gateway of the users choice to verify it's availability.</p>
                 <h3>Token contract addresses are:</h3>
                 <ul>
-                    <li>Rootstock: </li>
-                    <li>Ethereum: </li>
-                    <li>Polygon: </li>
-                    <li>Binance Smart Chain: </li>
-                    <li>Avalanche C-chain: </li>
+                    <li>Rootstock: <b>0xb3E3c947f1f85A973Da1985E4d11672542257714</b></li>
+                    <li>Ethereum: <b>0x075cD95749e4Ac186D72734A211162e4E127b9E1</b></li>
+                    <li>Polygon: <b>0x075cD95749e4Ac186D72734A211162e4E127b9E1</b></li>
+                    <li>Binance Smart Chain: <b>0xB3e3C947f1F85a973dA1985e4D11672542257714</b></li>
+                    <li>Avalanche C-chain: <b>0x075cD95749e4Ac186D72734A211162e4E127b9E1</b></li>
                 </ul>
                 <h3>Donation address: </h3>
                 <ul>
